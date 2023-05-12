@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/12 16:21:24 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:22:33 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,17 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include "mlx/mlx.h"
+
+typedef struct s_pars
+{
+	const char	*path;
+	char		*line;
+	char		*identifiers[6];
+	char		**mat;
+	int			width;
+	int			height;
+	int			offset;
+}	t_pars;
 
 // Parser
 // parser

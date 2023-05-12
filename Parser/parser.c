@@ -6,22 +6,11 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 11:56:51 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/12 16:20:37 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:22:22 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-typedef struct s_pars
-{
-	const char	*path;
-	char		*line;
-	char		*identifiers[6];
-	char		**mat;
-	int			width;
-	int			height;
-	int			offset;
-}	t_pars;
 
 /*
 [0] -> for OK
