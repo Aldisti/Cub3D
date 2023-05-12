@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:29:34 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/12 17:33:25 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/12 18:51:29 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 /*
 RETURN
-[0] if c is in chars
-[1] if c is not in chars
+[1] if c is in chars
+[0] if c is not in chars
 */
 int	ft_in(char c, const char *chars)
 {
