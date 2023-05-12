@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/12 16:37:35 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/12 17:33:49 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ void	ft_free_mat(void ***mat);
 // len
 size_t	ft_strlen(char const *str);
 size_t	ft_matlen(char const **mat);
+// in
+int		ft_in(char c, const char *chars);
 // dup
 char	*ft_strdup(char const *str);
 
