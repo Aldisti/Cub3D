@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 11:56:51 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/12 16:22:22 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:43:26 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ C 225,30,0
 11000001110101011111011110N0111
 11110111 1110101 101111010001
 11111111 1111111 111111111111
-
 */
 
 int	ft_getdim(t_pars *pars)
@@ -58,6 +57,8 @@ int	ft_getdim(t_pars *pars)
 			break ;
 		if (pars->line[0] == 10 && ++pars->offset)
 			continue ;
+		if (i == 6 && (int)ft_strlen(pars->line) > pars->width)
+			pars->width = ft_strlen(pars->line);
 		if ((i == 6 && ++pars->height) || !(++pars->offset))
 			continue ;
 		pars->identifiers[i++] = ft_strdup(pars->line);
@@ -111,7 +112,9 @@ int	ft_parser(char *path)
 	if (ft_getmat(&pars))
 		exit(12);
 	if (ft_check_mat(&pars))
-		exit(13);
+		printf("KO\n");
+	else
+		printf("OK\n");
 	// for (int i = 0; pars.mat[i]; i++)
 	// 	printf("|%s|\n", pars.mat[i]);
 	return (0);

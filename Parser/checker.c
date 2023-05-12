@@ -6,13 +6,62 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 16:20:49 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/12 16:21:10 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:36:36 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
+/*
+        1111111111111111111111111
+        1000000000110000000000001
+        1011000001110000000000001
+        1001000000000000000000001
+111111111011000001110000000000001
+100000000011000001110111111111111
+11110111111111011100000010001
+11110111111111011101010010001
+11000000110101011100000010001
+10000000000000001100000010001
+10000000000000001101010010001
+11000001110101011111011110N0111
+11110111 1110101 101111010001
+11111111 1111111 111111111111
+*/
+
+int	ft_check_border(t_pars *pars)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (pars->mat[0][++i])
+		if (pars->mat[0][i] != 49 && pars->mat[0][i] != 32)
+			return (1);
+	i = -1;
+	while (pars->mat[pars->height - 1][++i])
+		if (pars->mat[pars->height - 1][i] != 49 && pars->mat[pars->height - 1][i] != 32)
+			return (1);
+	j = -1;
+	while (pars->mat[++j])
+	{
+		i = 0;
+		while (pars->mat[j][i] && pars->mat[j][i] == 32)
+			i++;
+		if (!pars->mat[j][i] || pars->mat[j][i] != 49)
+			return (1);
+		i = ft_strlen(pars->mat[j]) - 1;
+		while (i >= 0 && pars->mat[j][i] == 32)
+			i--;
+		if (!pars->mat[j][i] || pars->mat[j][i] != 49)
+			return (1);
+	}
+	return (0);
+}
+
 int	ft_check_mat(t_pars *pars)
 {
-	
+	if (ft_check_border(pars))
+		return (1);
+	return (0);
 }

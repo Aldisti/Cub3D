@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/12 16:22:33 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:37:35 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,12 @@ typedef struct s_pars
 // Parser
 // parser
 int		ft_parser(char *path);
+int		ft_getdim(t_pars *pars);
 int		ft_getmat(t_pars *pars);
+// checker
+int		ft_check_mat(t_pars *pars);
+int		ft_check_border(t_pars *pars);
+
 // Utils
 // get_next_line
 char	*get_next_line(int fd);
