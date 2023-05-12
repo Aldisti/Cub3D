@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/12 15:42:06 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:21:24 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@
 
 // Parser
 // parser
-int	ft_parser(char *path);
+int		ft_parser(char *path);
+int		ft_getmat(t_pars *pars);
 // Utils
 // get_next_line
 char	*get_next_line(int fd);

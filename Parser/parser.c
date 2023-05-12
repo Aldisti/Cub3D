@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 11:56:51 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/12 15:53:45 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:20:37 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct s_pars
 	char		**mat;
 	int			width;
 	int			height;
+	int			offset;
 }	t_pars;
 
 /*
@@ -60,23 +61,50 @@ int	ft_getdim(t_pars *pars)
 	if (fd == -1)
 		return (1);
 	i = 0;
-	pars->width = 0;
-	pars->height = 0;
-	pars->line = NULL;
 	while (42)
 	{
 		ft_free((void **)&pars->line);
 		pars->line = get_next_line(fd);
 		if (!pars->line)
 			break ;
-		if (pars->line[0] == 10)
+		if (pars->line[0] == 10 && ++pars->offset)
 			continue ;
-		if (i == 6 && ++pars->height)
+		if ((i == 6 && ++pars->height) || !(++pars->offset))
 			continue ;
 		pars->identifiers[i++] = ft_strdup(pars->line);
 		if (!pars->identifiers[i - 1])
 			exit(10);
 	}
+	close(fd);
+	return (0);
+}
+
+int	ft_getmat(t_pars *pars)
+{
+	int	fd;
+	int	i;
+
+	pars->mat = (char **)malloc((pars->height + 1) * sizeof(char *));
+	if (!pars->mat)
+		return (1);
+	i = 0;
+	fd = open(pars->path, O_RDONLY);
+	while (42)
+	{
+		ft_free((void **)&pars->line);
+		pars->line = get_next_line(fd);
+		if (!pars->line)
+			break ;
+		if (pars->offset-- > 0)
+			continue ;
+		if (pars->line[ft_strlen(pars->line) - 1] == 10)
+			pars->line[ft_strlen(pars->line) - 1] = 0;
+		pars->mat[i++] = ft_strdup(pars->line);
+		if (!pars->mat[i - 1])
+			exit(13);
+	}
+	pars->mat[i] = 0;
+	close(fd);
 	return (0);
 }
 
@@ -84,8 +112,18 @@ int	ft_parser(char *path)
 {
 	t_pars	pars;
 
+	pars.path = path;
+	pars.width = 0;
+	pars.height = 0;
+	pars.offset = 0;
+	pars.line = NULL;
 	if (ft_getdim(&pars))
-		return (1);
-	
+		exit(11);
+	if (ft_getmat(&pars))
+		exit(12);
+	if (ft_check_mat(&pars))
+		exit(13);
+	// for (int i = 0; pars.mat[i]; i++)
+	// 	printf("|%s|\n", pars.mat[i]);
 	return (0);
 }
