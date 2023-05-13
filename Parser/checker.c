@@ -6,44 +6,11 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 16:20:49 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/12 19:17:52 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/13 11:52:59 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-/*
-        1111111111111111111111111
-        1000000000110000000000001
-        1011000001110000000000001
-        1001000000000000000000001
-111111111011000001110000000000001
-100000000011000001110111111111111
-11110111111111011100000010001
-11110111111111011101010010001
-11000000110101011100000010001
-10000000000000001100000010001
-10000000000000001101010010001
-11000001110101011111011110N0111
-11110111 1110101 101111010001
-11111111 1111111 111111111111
-*/
-
-int	ft_check_border(t_pars *pars)
-{
-	int	i;
-
-	i = -1;
-	while (pars->mat[0][++i])
-		if (pars->mat[0][i] != 49 && pars->mat[0][i] != 32)
-			return (1);
-	i = -1;
-	while (pars->mat[pars->height - 1][++i])
-		if (pars->mat[pars->height - 1][i] != 49
-			&& pars->mat[pars->height - 1][i] != 32)
-			return (1);
-	return (0);
-}
 
 /*
 DESCRIPTION
@@ -78,6 +45,10 @@ int	ft_check_se(const char *s1, const char *s2)
 	int	i;
 	int	j;
 
+	i = -1;
+	while (s1[++i])
+		if (!ft_in(s1[i], SYMBOLS))
+			return (1);
 	i = 0;
 	j = 0;
 	while (s2[j] && s2[j] == 32)
@@ -97,29 +68,32 @@ int	ft_check_se(const char *s1, const char *s2)
 	return (0);
 }
 
-int	ft_check_space(t_pars *pars)
+/*
+CODES
+31 - first and last line check
+32 - all spaces are surrounded by ones
+33 - every line doesn't contain weird chars and every line starts and ends
+		with ones or spaces
+*/
+int	ft_check_mat(t_pars *pars)
 {
+	int	i;
 	int	j;
 
 	j = -1;
 	while (pars->mat[++j])
 	{
-		printf("%d\n", j);
+		i = 0;
+		if (j == 0 || j == pars->height - 1)
+			while (pars->mat[j][i])
+				if (!ft_in(pars->mat[j][i++], " 1"))
+					return (31);
 		if (j < pars->height - 1 && ft_space_cmp(pars->mat[j], pars->mat[j + 1]))
-			return (1);
+			return (32);
 		if (j < pars->height - 1 && ft_check_se(pars->mat[j], pars->mat[j + 1]))
-			return (1);
+			return (33);
 		if (j < pars->height - 1 && ft_check_se(pars->mat[j + 1], pars->mat[j]))
-			return (1);
+			return (33);
 	}
-	return (0);
-}
-
-int	ft_check_mat(t_pars *pars)
-{
-	if (ft_check_border(pars))
-		return (1);
-	if (ft_check_space(pars))
-		return (1);
 	return (0);
 }

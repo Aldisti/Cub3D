@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 11:56:51 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/12 16:43:26 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/13 11:53:39 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,24 +98,17 @@ int	ft_getmat(t_pars *pars)
 	return (0);
 }
 
-int	ft_parser(char *path)
+int	ft_parser(t_pars *pars)
 {
-	t_pars	pars;
-
-	pars.path = path;
-	pars.width = 0;
-	pars.height = 0;
-	pars.offset = 0;
-	pars.line = NULL;
-	if (ft_getdim(&pars))
+	if (ft_getdim(pars))
 		exit(11);
-	if (ft_getmat(&pars))
+	if (ft_getmat(pars))
 		exit(12);
-	if (ft_check_mat(&pars))
+	if (ft_check_mat(pars))
 		printf("KO\n");
 	else
 		printf("OK\n");
-	// for (int i = 0; pars.mat[i]; i++)
-	// 	printf("|%s|\n", pars.mat[i]);
+	// if (ft_check_info(pars))
+	// 	exit(13);
 	return (0);
 }

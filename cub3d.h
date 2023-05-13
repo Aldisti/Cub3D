@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/12 17:33:49 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/13 11:51:24 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
 # endif
+
+# define WIDTH 1080
+# define HEIGHT 480
+# define SYMBOLS " 10NEWS"
 
 # include <math.h>
 # include <fcntl.h>
@@ -35,14 +39,34 @@ typedef struct s_pars
 	int			offset;
 }	t_pars;
 
+typedef struct s_game
+{
+	void	*mlx;
+	void	*win;
+	void	*no;
+	int		no_w;
+	int		no_h;
+	void	*so;
+	int		so_w;
+	int		so_h;
+	void	*we;
+	int		we_w;
+	int		we_h;
+	void	*ea;
+	int		ea_w;
+	int		ea_h;
+	t_pars	pars;
+}	t_game;
+
 // Parser
 // parser
-int		ft_parser(char *path);
+int		ft_parser(t_pars *pars);
 int		ft_getdim(t_pars *pars);
 int		ft_getmat(t_pars *pars);
 // checker
 int		ft_check_mat(t_pars *pars);
-int		ft_check_border(t_pars *pars);
+int		ft_check_se(const char *s1, const char *s2);
+int		ft_space_cmp(const char *s1, const char *s2);
 
 // Utils
 // get_next_line
