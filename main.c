@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:53:33 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/13 11:54:10 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/13 11:57:31 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,6 @@ int	main(int ac, char **av)
 		return (write(2, "Error: arguments\n", 17) - 16);
 	game.pars.path = av[1];
 	ft_init(&game);
-	ft_parser(&game.pars);
+	ft_parser(&game);
 	return (0);
 }

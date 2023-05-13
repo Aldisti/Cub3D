@@ -6,29 +6,29 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 11:35:37 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/12 11:56:42 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/13 12:29:10 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	ft_free(void **elem)
+int	ft_free(void **elem)
 {
 	if (*elem)
 		free(*elem);
 	*elem = NULL;
-	return ;
+	return (0);
 }
 
-void	ft_free_mat(void ***mat)
+int	ft_free_mat(void ***mat)
 {
 	int	i;
 
 	if (!(*mat))
-		return ;
+		return (0);
 	i = 0;
 	while ((*mat)[i])
 		ft_free(&(*mat)[i++]);
 	*mat = NULL;
-	return ;
+	return (0);
 }

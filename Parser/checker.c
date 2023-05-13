@@ -6,11 +6,31 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 16:20:49 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/13 11:52:59 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/13 12:37:23 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+int	ft_check_info(t_game *game)
+{
+	printf("%d %d %d\n", game->f[0], game->f[1], game->f[2]);
+	printf("%d %d %d\n", game->c[0], game->c[1], game->c[2]);
+	return (0);
+}
+
+int	ft_check_num(const char *num)
+{
+	int	i;
+
+	i = -1;
+	while (num[++i])
+		if (num[i] > 57 || num[i] < 48)
+			return (1);
+	if (i > 3)
+		return (1);
+	return (0);
+}
 
 /*
 DESCRIPTION

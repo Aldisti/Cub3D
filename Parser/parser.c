@@ -6,39 +6,59 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 11:56:51 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/13 11:53:39 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/13 12:49:24 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-/*
-[0] -> for OK
-[1] -> for error
+int	ft_get_color(t_game *game, const char type, const char *rgb)
+{
+	char	**tmp;
+	int		i;
 
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
+	tmp = ft_split(rgb, ',');
+	i = 0;
+	while (tmp[i])
+		if (ft_check_num(tmp[i++]))
+			return (ft_free_mat((void ***)&tmp) + 1);
+	i = -1;
+	if (type == 'F')
+		while (++i < 3)
+			game->f[i] = ft_atoi(tmp[i]);
+	else if (type == 'C')
+		while (++i < 3)
+			game->c[i] = ft_atoi(tmp[i]);
+	return (ft_free_mat((void ***)&tmp));
+}
 
-F 220,100,0
-C 225,30,0
+int	ft_get_info(t_game *g, t_pars *pars)
+{
+	char	**tmp;
+	int		i;
 
-        1111111111111111111111111
-        1000000000110000000000001
-        1011000001110000000000001
-        1001000000000000000000001
-111111111011000001110000000000001
-100000000011000001110111111111111
-11110111111111011100000010001
-11110111111111011101010010001
-11000000110101011100000010001
-10000000000000001100000010001
-10000000000000001101010010001
-11000001110101011111011110N0111
-11110111 1110101 101111010001
-11111111 1111111 111111111111
-*/
+	i = -1;
+	while (++i < 6)
+	{
+		tmp = ft_split(pars->ids[i], 32);
+		ft_print_mat(tmp);
+		if (!tmp)
+			exit(110);
+		if (!ft_strcmp(tmp[0], "NO"))
+			g->no = mlx_xpm_file_to_image(g->mlx, tmp[1], &g->no_w, &g->no_h);
+		else if (!ft_strcmp(tmp[0], "SO"))
+			g->so = mlx_xpm_file_to_image(g->mlx, tmp[1], &g->so_w, &g->so_h);
+		else if (!ft_strcmp(tmp[0], "WE"))
+			g->we = mlx_xpm_file_to_image(g->mlx, tmp[1], &g->we_w, &g->we_h);
+		else if (!ft_strcmp(tmp[0], "EA"))
+			g->ea = mlx_xpm_file_to_image(g->mlx, tmp[1], &g->ea_w, &g->ea_h);
+		else if ((!ft_strcmp(tmp[0], "F") || !ft_strcmp(tmp[0], "C"))
+			&& ft_get_color(g, tmp[0][0], tmp[1]))
+			return (ft_free_mat((void ***)&tmp) + 1);
+		ft_free_mat((void ***)&tmp);
+	}
+	return (0);
+}
 
 int	ft_getdim(t_pars *pars)
 {
@@ -46,8 +66,6 @@ int	ft_getdim(t_pars *pars)
 	int	i;
 
 	fd = open(pars->path, O_RDONLY);
-	if (fd == -1)
-		return (1);
 	i = 0;
 	while (42)
 	{
@@ -61,9 +79,11 @@ int	ft_getdim(t_pars *pars)
 			pars->width = ft_strlen(pars->line);
 		if ((i == 6 && ++pars->height) || !(++pars->offset))
 			continue ;
-		pars->identifiers[i++] = ft_strdup(pars->line);
-		if (!pars->identifiers[i - 1])
+		pars->ids[i++] = ft_strdup(pars->line);
+		if (!pars->ids[i - 1])
 			exit(10);
+		pars->ids[i - 1][ft_strlen(pars->ids[i - 1]) - 1]
+			*= !(pars->ids[i - 1][ft_strlen(pars->ids[i - 1]) - 1] == 10);
 	}
 	close(fd);
 	return (0);
@@ -98,17 +118,19 @@ int	ft_getmat(t_pars *pars)
 	return (0);
 }
 
-int	ft_parser(t_pars *pars)
+int	ft_parser(t_game *game)
 {
-	if (ft_getdim(pars))
+	if (ft_getdim(&game->pars))
 		exit(11);
-	if (ft_getmat(pars))
+	if (ft_getmat(&game->pars))
 		exit(12);
-	if (ft_check_mat(pars))
+	if (ft_check_mat(&game->pars))
 		printf("KO\n");
 	else
 		printf("OK\n");
-	// if (ft_check_info(pars))
-	// 	exit(13);
+	if (ft_get_info(game, &game->pars))
+		exit(13);
+	if (ft_check_info(game))
+		exit(14);
 	return (0);
 }
