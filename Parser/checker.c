@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 16:20:49 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/13 12:37:23 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/13 12:56:57 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,20 @@
 
 int	ft_check_info(t_game *game)
 {
-	printf("%d %d %d\n", game->f[0], game->f[1], game->f[2]);
-	printf("%d %d %d\n", game->c[0], game->c[1], game->c[2]);
+	int	i;
+
+	if (!game->no)
+		return (2);
+	if (!game->so)
+		return (3);
+	if (!game->we)
+		return (4);
+	if (!game->ea)
+		return (5);
+	i = -1;
+	while (++i < 3)
+		if (game->f[i] > 255 || game->c[i] > 255)
+			return (1);
 	return (0);
 }
 

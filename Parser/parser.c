@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 11:56:51 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/13 12:49:24 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/13 13:03:16 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	ft_get_info(t_game *g, t_pars *pars)
 	while (++i < 6)
 	{
 		tmp = ft_split(pars->ids[i], 32);
-		ft_print_mat(tmp);
 		if (!tmp)
 			exit(110);
 		if (!ft_strcmp(tmp[0], "NO"))
@@ -121,16 +120,14 @@ int	ft_getmat(t_pars *pars)
 int	ft_parser(t_game *game)
 {
 	if (ft_getdim(&game->pars))
-		exit(11);
+		ft_die(game);
 	if (ft_getmat(&game->pars))
-		exit(12);
+		ft_die(game);
 	if (ft_check_mat(&game->pars))
-		printf("KO\n");
-	else
-		printf("OK\n");
+		ft_die(game);
 	if (ft_get_info(game, &game->pars))
-		exit(13);
+		ft_die(game);
 	if (ft_check_info(game))
-		exit(14);
+		ft_die(game);
 	return (0);
 }

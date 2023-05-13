@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:53:33 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/13 11:57:31 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/13 13:04:42 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,6 @@ int	main(int ac, char **av)
 	game.pars.path = av[1];
 	ft_init(&game);
 	ft_parser(&game);
+	ft_die(&game);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/13 12:46:12 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/13 13:02:31 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ char	*ft_get_first_str(char *buff);
 void	ft_memmove_get(char *dst, char *src);
 char	*ft_realloc_get(char *str, char *buff);
 // free
+void	ft_die(t_game *game);
 int		ft_free(void **elem);
 int		ft_free_mat(void ***mat);
 // str
