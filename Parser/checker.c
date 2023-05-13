@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 16:20:49 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/13 12:56:57 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/13 13:16:39 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ s2 and viceversa
 int	ft_space_cmp(const char *s1, const char *s2)
 {
 	int	i;
-	
+
 	i = 0;
 	while (s1[i] && s2[i])
 	{
@@ -120,7 +120,8 @@ int	ft_check_mat(t_pars *pars)
 			while (pars->mat[j][i])
 				if (!ft_in(pars->mat[j][i++], " 1"))
 					return (31);
-		if (j < pars->height - 1 && ft_space_cmp(pars->mat[j], pars->mat[j + 1]))
+		if (j < pars->height - 1
+			&& ft_space_cmp(pars->mat[j], pars->mat[j + 1]))
 			return (32);
 		if (j < pars->height - 1 && ft_check_se(pars->mat[j], pars->mat[j + 1]))
 			return (33);
