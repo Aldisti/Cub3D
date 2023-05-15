@@ -6,7 +6,7 @@
 #    By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/12 10:56:52 by adi-stef          #+#    #+#              #
-#    Updated: 2023/05/12 11:56:19 by adi-stef         ###   ########.fr        #
+#    Updated: 2023/05/15 16:11:57 by gpanico          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ OBJ		= $(SRC:%.c=%.o)
 
 CC		= gcc
 FLAGS	= -Wall -Wextra -Werror
-MLX		= mlx/libmlx.a -Lmlx -lXext -lX11
+MLX		= mlx/libmlx.a -Lmlx -lXext -lX11 -lm
 RM		= rm -f
 
 %.o:%.c

@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/13 13:02:31 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/15 14:20:19 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@
 # include <unistd.h>
 # include "mlx/mlx.h"
 
+typedef struct s_vect
+{
+	double	x;
+	double	y;
+}	t_vect;
+
 typedef struct s_pars
 {
 	const char	*path;
@@ -43,6 +49,11 @@ typedef struct s_game
 {
 	void	*mlx;
 	void	*win;
+	void	*img;
+	void	*addr;
+	int		bpp;
+	int		line_length;
+	int		endian;
 	void	*no;
 	int		no_w;
 	int		no_h;
@@ -57,7 +68,11 @@ typedef struct s_game
 	int		ea_h;
 	int		f[3];
 	int		c[3];
-	t_pars	pars;
+	t_vect		pos;
+	t_vect		dir;
+	t_vect		cam;
+	t_vect		ray;
+	t_pars		pars;
 }	t_game;
 
 // Parser

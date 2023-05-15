@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 11:56:51 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/13 13:03:16 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/15 12:02:50 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,14 +120,14 @@ int	ft_getmat(t_pars *pars)
 int	ft_parser(t_game *game)
 {
 	if (ft_getdim(&game->pars))
-		ft_die(game);
+		return (1);
 	if (ft_getmat(&game->pars))
-		ft_die(game);
+		return (1);
 	if (ft_check_mat(&game->pars))
-		ft_die(game);
+		return (1);
 	if (ft_get_info(game, &game->pars))
-		ft_die(game);
+		return (1);
 	if (ft_check_info(game))
-		ft_die(game);
+		return (1);
 	return (0);
 }
