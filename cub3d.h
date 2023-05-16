@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/15 14:20:19 by gpanico          ###   ########.fr       */
+/*   Updated: 2023/05/16 14:39:23 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 #  define BUFFER_SIZE 1
 # endif
 
-# define WIDTH 1080
-# define HEIGHT 480
+# define WIDTH 800
+# define HEIGHT 600
 # define SYMBOLS " 10NEWS"
 
 # include <math.h>
@@ -27,6 +27,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include "mlx/mlx.h"
+
 
 typedef struct s_vect
 {
@@ -51,6 +52,9 @@ typedef struct s_game
 	void	*win;
 	void	*img;
 	void	*addr;
+	int		move_x;
+	int		move_y;
+	int		rotate;
 	int		bpp;
 	int		line_length;
 	int		endian;
