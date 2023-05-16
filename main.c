@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:53:33 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/16 15:35:18 by gpanico          ###   ########.fr       */
+/*   Updated: 2023/05/16 16:21:02 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	ft_init(t_game *game)
 {
 	game->move_y = 0;
 	game->move_x = 0;
+	game->z = 2;
 	game->rotate = 0;
 
 	game->mlx = NULL;
@@ -42,6 +43,8 @@ void	ft_init(t_game *game)
 	return ;	
 }
 
+int	ft_game(void *param);
+
 int	key_down(int keycode, void *param)
 {
 	t_game	*game;
@@ -59,6 +62,12 @@ int	key_down(int keycode, void *param)
 		game->rotate = -1;
 	else if (keycode == 65363)
 		game->rotate = 1;
+	else if (keycode == 'z')
+	{
+		game->cam.x /=8;
+		game->cam.y /=8;
+		game->z = 16;
+	}
 	else if (keycode == 65307)
 		exit(1);
 	return (0);
@@ -75,7 +84,18 @@ int	key_up(int keycode, void *param)
 		game->move_x = 0;
 	else if (keycode == 65361 || keycode == 65363)
 		game->rotate = 0;
+	else if (keycode == 'z')
+	{
+		game->cam.x *=8;
+		game->cam.y *=8;
+		game->z = 2;
+	}
 	return (0);
+}
+
+int	create_trgb(int t, int r, int g, int b)
+{
+	return ((t << 24) | (r << 16) | (g << 8) | b);
 }
 
 int	ft_game(void *param)
@@ -225,7 +245,7 @@ int	ft_game(void *param)
 				perpWallDist = sideDistY - deltaDistY;
 			//perpWallDist = sqrtf(sideDistY * sideDistY + sideDistX * sideDistX);
 			//printf("Dist: %f\n", perpWallDist);
-			lineheight = (int) (HEIGHT / perpWallDist);
+			lineheight = (int) (game->z * HEIGHT / perpWallDist);
 			drawStart = HEIGHT / 2 - lineheight / 2;
 			if (drawStart < 0)
 				drawStart  = 0;
@@ -233,11 +253,26 @@ int	ft_game(void *param)
 			if (drawEnd >= HEIGHT)
 				drawEnd = HEIGHT - 1;
 			char *dst;
-			while (drawStart <= drawEnd)
+			int	n;
+			n = 0;
+			while (n < HEIGHT)
 			{
-				dst = game->addr + (i * (game->bpp / 8) + drawStart * game->line_length);
-				*(unsigned int *)dst = 0xff0000 ; 
-				drawStart++;
+				if (n >= drawStart && n <= drawEnd)
+				{
+					dst = game->addr + (i * (game->bpp / 8) + n * game->line_length);
+					*(unsigned int *)dst = 0xff0000;
+				}
+				else if (n < drawStart)
+				{
+					dst = game->addr + (i * (game->bpp / 8) + n * game->line_length);
+					*(unsigned int *)dst = create_trgb(1, game->c[0], game->c[1], game->c[2]);
+				}
+				else if (n > drawEnd)
+				{
+					dst = game->addr + (i * (game->bpp / 8) + n * game->line_length);
+					*(unsigned int *)dst = create_trgb(1, game->f[0], game->f[1], game->f[2]);
+				}
+				n++;	
 			}
 		}
 		mlx_clear_window(game->mlx, game->win);
