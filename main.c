@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:53:33 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/16 14:46:57 by gpanico          ###   ########.fr       */
+/*   Updated: 2023/05/16 15:35:18 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,14 +143,18 @@ int	ft_game(void *param)
 		}
 
 		// check boundary
-		if (game->pos.x > game->pars.width - 2.25f)
-			game->pos.x = game->pars.width - 2.25f;
-		if (game->pos.x < 1.25f)
-			game->pos.x = 1.25f;
-		if (game->pos.y > game->pars.height - 1.25f)
-			game->pos.y = game->pars.height - 1.25f;
-		if (game->pos.y < 1.25f)
-			game->pos.y = 1.25f;
+		if (game->pars.mat[(int) game->pos.y][(int)game->pos.x + 1] == '1'
+				&& game->pos.x > (int)game->pos.x + 1 - 0.25f)
+			game->pos.x = (int)game->pos.x + 1 - 0.25f;
+		if (game->pars.mat[(int) game->pos.y][(int)game->pos.x - 1] == '1'
+				&& game->pos.x < (int)game->pos.x + 0.25f)
+			game->pos.x = (int)game->pos.x + 0.25f;
+		if (game->pars.mat[(int) game->pos.y + 1][(int)game->pos.x] == '1'
+				&& game->pos.y > (int)game->pos.y + 1 - 0.25f)
+			game->pos.y = (int)game->pos.y + 1 - 0.25f;
+		if (game->pars.mat[(int) game->pos.y - 1][(int)game->pos.x] == '1'
+				&& game->pos.y < (int)game->pos.y + 0.25f)
+			game->pos.y = (int)game->pos.y + 0.25f;
 
 		for (int i = 0; i < WIDTH; i++)
 		{
