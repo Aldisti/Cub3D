@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 11:56:51 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/16 11:44:43 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/16 13:51:09 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,13 @@ int	ft_getmat(t_pars *pars)
 
 int	ft_parser(t_game *game)
 {
+	int	len;
+
+	len = ft_strlen(game->pars.path);
+	if (len < 5 || game->pars.path[len - 1] != 'b'
+		|| game->pars.path[len - 2] != 'u' || game->pars.path[len - 3] != 'c'
+		|| game->pars.path[len - 4] != '.')
+		return (ft_error(INV_MAP, 1));
 	if (ft_getdim(&game->pars) || game->pars.height <= 2)
 		return (ft_error(INV_MAP, 1));
 	if (ft_getmat(&game->pars))
