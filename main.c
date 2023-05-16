@@ -6,37 +6,11 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:53:33 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/15 16:33:23 by gpanico          ###   ########.fr       */
+/*   Updated: 2023/05/16 11:12:50 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	ft_init(t_game *game)
-{
-	game->mlx = NULL;
-	game->win = NULL;
-	game->img = NULL;
-	game->addr = NULL;
-	game->no = NULL;
-	game->so = NULL;
-	game->we = NULL;
-	game->ea = NULL;
-	game->no_w = 0;
-	game->no_h = 0;
-	game->so_w = 0;
-	game->so_h = 0;
-	game->we_w = 0;
-	game->we_h = 0;
-	game->ea_w = 0;
-	game->ea_h = 0;
-	game->pars.line = NULL;
-	game->pars.mat = NULL;
-	game->pars.width = 0;
-	game->pars.height = 0;
-	game->pars.offset = 0;
-	return ;	
-}
 
 void	ft_game(t_game *game)
 {
@@ -52,11 +26,6 @@ void	ft_game(t_game *game)
 	double	sideDistX, sideDistY;
 	double	posX, posY;
 
-
-	game->pos.x = 10.5f;
-	game->pos.y = 10.5f;
-	game->dir.x = -1;
-	game->dir.y = 0;
 	game->cam.x = 0;
 	game->cam.y = 0.66;
 
@@ -102,11 +71,11 @@ void	ft_game(t_game *game)
 			stepY = 1;
 			sideDistY = (1.0f + (int) posY - posY) * deltaDistY;
 		}
-		printf("ray: %d\n", i);
+		// printf("ray: %d\n", i);
 		//printf("X: %f\n", game->ray.x);
 		//printf("Y: %f\n", game->ray.y);
-		printf("deltadistX: %f\n", deltaDistX);
-		printf("deltadistY: %f\n", deltaDistY);
+		// printf("deltadistX: %f\n", deltaDistX);
+		// printf("deltadistY: %f\n", deltaDistY);
 
 		//DDA
 		while (!hit)
@@ -131,7 +100,7 @@ void	ft_game(t_game *game)
 		else
 			perpWallDist = sideDistY - deltaDistY;
 		//perpWallDist = sqrtf(sideDistY * sideDistY + sideDistX * sideDistX);
-		printf("Dist: %f\n", perpWallDist);
+		// printf("Dist: %f\n", perpWallDist);
 		lineheight = (int) (HEIGHT / perpWallDist);
 		drawStart = HEIGHT / 2 - lineheight / 2;
 		if (drawStart < 0)
@@ -160,11 +129,15 @@ int	main(int ac, char **av)
 		return (write(2, "Error: arguments\n", 17) - 16);
 	game.pars.path = av[1];
 	ft_init(&game);
-	ft_parser(&game);
+	if (ft_parser(&game))
+	{
+		ft_die(&game);
+		return (1);
+	}
+	printf("ciao\n");
 	game.mlx = mlx_init();
 	game.win = mlx_new_window(game.mlx, WIDTH, HEIGHT, "Cub3D");
 	ft_game(&game);
 	mlx_loop(game.mlx);
-	//ft_die(&game);
 	return (0);
 }

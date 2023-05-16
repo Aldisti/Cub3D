@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/15 14:20:19 by gpanico          ###   ########.fr       */
+/*   Updated: 2023/05/16 11:39:47 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,18 @@
 # define WIDTH 1080
 # define HEIGHT 480
 # define SYMBOLS " 10NEWS"
+// errors
+# define NO_MISS "missing or invalid image for the north side"
+# define SO_MISS "missing or invalid image for the south side"
+# define WE_MISS "missing or invalid image for the west side"
+# define EA_MISS "missing or invalid image for the east side"
+# define PL_MISS "player position missig"
+# define INV_COL "invalid colors"
+# define INV_MAP "invalid map"
+// colors
+# define RED "\033[31m"
+# define BLKRED "\033[5;31m"
+# define RESET "\033[0;0;0m"
 
 # include <math.h>
 # include <fcntl.h>
@@ -34,15 +46,23 @@ typedef struct s_vect
 	double	y;
 }	t_vect;
 
+typedef struct s_img
+{
+	void	*img;
+	int		w;
+	int		h;
+}	t_img;
+
 typedef struct s_pars
 {
-	const char	*path;
-	char		*line;
-	char		*ids[6];
-	char		**mat;
-	int			width;
-	int			height;
-	int			offset;
+	const char		*path;
+	char			*line;
+	char			*ids[6];
+	char			**mat;
+	int				width;
+	int				height;
+	int				offset;
+	struct s_game	*game;
 }	t_pars;
 
 typedef struct s_game
@@ -54,18 +74,10 @@ typedef struct s_game
 	int		bpp;
 	int		line_length;
 	int		endian;
-	void	*no;
-	int		no_w;
-	int		no_h;
-	void	*so;
-	int		so_w;
-	int		so_h;
-	void	*we;
-	int		we_w;
-	int		we_h;
-	void	*ea;
-	int		ea_w;
-	int		ea_h;
+	t_img	no;
+	t_img	so;
+	t_img	we;
+	t_img	ea;
 	int		f[3];
 	int		c[3];
 	t_vect		pos;
@@ -80,14 +92,19 @@ typedef struct s_game
 int		ft_parser(t_game *game);
 int		ft_getdim(t_pars *pars);
 int		ft_getmat(t_pars *pars);
-int		ft_get_info(t_game *g, t_pars *pars);
-int		ft_get_color(t_game *game, const char type, const char *rgb);
 // checker
 int		ft_check_mat(t_pars *pars);
 int		ft_check_info(t_game *game);
 int		ft_check_num(const char *num);
 int		ft_check_se(const char *s1, const char *s2);
 int		ft_space_cmp(const char *s1, const char *s2);
+// get_info
+void	ft_get_pos(t_game *game, int y);
+int		ft_get_info(t_game *g, t_pars *pars);
+int		ft_get_color(t_game *game, const char type, const char *rgb);
+// init
+void	ft_init(t_game *game);
+void	ft_init_pars(t_game *game);
 
 // Utils
 // get_next_line
@@ -102,6 +119,7 @@ char	*ft_realloc_get(char *str, char *buff);
 void	ft_die(t_game *game);
 int		ft_free(void **elem);
 int		ft_free_mat(void ***mat);
+int		ft_error(char *str, int code);
 // str
 int		ft_atoi(const char *str);
 void	ft_print_mat(char **mat);
@@ -118,5 +136,7 @@ char	*ft_strdup(char const *str);
 char	**ft_split(char const *s, char c);
 void	*ft_calloc(size_t num, size_t dim);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
+// mlx_wrap
+void	*ft_xpm(void *mlx, char *str, int *w, int *h);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 16:20:49 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/13 13:16:39 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/16 11:08:59 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,21 @@ int	ft_check_info(t_game *game)
 {
 	int	i;
 
-	if (!game->no)
-		return (2);
-	if (!game->so)
-		return (3);
-	if (!game->we)
-		return (4);
-	if (!game->ea)
-		return (5);
+	if (!game->no.img)
+		return (ft_error(NO_MISS, 2));
+	if (!game->so.img)
+		return (ft_error(SO_MISS, 3));
+	if (!game->we.img)
+		return (ft_error(WE_MISS, 4));
+	if (!game->ea.img)
+		return (ft_error(EA_MISS, 5));
+	if (game->pos.x == -1 || game->pos.y == -1
+		|| (!game->dir.x && !game->pos.y))
+		return (ft_error(PL_MISS, 6));
 	i = -1;
 	while (++i < 3)
 		if (game->f[i] > 255 || game->c[i] > 255)
-			return (1);
+			return (ft_error(INV_COL, 1));
 	return (0);
 }
 
@@ -115,6 +118,7 @@ int	ft_check_mat(t_pars *pars)
 	j = -1;
 	while (pars->mat[++j])
 	{
+		ft_get_pos(pars->game, j);
 		i = 0;
 		if (j == 0 || j == pars->height - 1)
 			while (pars->mat[j][i])
