@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 11:35:37 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/13 13:07:16 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/17 11:30:12 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ void	ft_die(t_game *game)
 {
 	int	i;
 
-	if (game->no)
-		mlx_destroy_image(game->mlx, game->no);
-	if (game->so)
-		mlx_destroy_image(game->mlx, game->so);
-	if (game->we)
-		mlx_destroy_image(game->mlx, game->we);
-	if (game->we)
-		mlx_destroy_image(game->mlx, game->we);
+	if (game->no.img)
+		mlx_destroy_image(game->mlx, game->no.img);
+	if (game->so.img)
+		mlx_destroy_image(game->mlx, game->so.img);
+	if (game->we.img)
+		mlx_destroy_image(game->mlx, game->we.img);
+	if (game->ea.img)
+		mlx_destroy_image(game->mlx, game->ea.img);
 	if (game->pars.line)
 		ft_free((void **)&game->pars.line);
 	if (game->pars.mat)

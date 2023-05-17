@@ -6,42 +6,11 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:53:33 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/17 11:11:24 by gpanico          ###   ########.fr       */
+/*   Updated: 2023/05/17 11:26:49 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	ft_init(t_game *game)
-{
-	game->move_y = 0;
-	game->move_x = 0;
-	game->z = 2;
-	game->rotate = 0;
-
-	game->mlx = NULL;
-	game->win = NULL;
-	game->img = NULL;
-	game->addr = NULL;
-	game->no = NULL;
-	game->so = NULL;
-	game->we = NULL;
-	game->ea = NULL;
-	game->no_w = 0;
-	game->no_h = 0;
-	game->so_w = 0;
-	game->so_h = 0;
-	game->we_w = 0;
-	game->we_h = 0;
-	game->ea_w = 0;
-	game->ea_h = 0;
-	game->pars.line = NULL;
-	game->pars.mat = NULL;
-	game->pars.width = 0;
-	game->pars.height = 0;
-	game->pars.offset = 0;
-	return ;	
-}
 
 int	ft_game(void *param);
 
@@ -290,14 +259,10 @@ int	main(int ac, char **av)
 		return (write(2, "Error: arguments\n", 17) - 16);
 	game.pars.path = av[1];
 	ft_init(&game);
+	game.mlx = mlx_init();
 	ft_parser(&game);
-	game.pos.x = 10.5f;
-	game.pos.y = 10.5f;
-	game.dir.x = 0;
-	game.dir.y = 1;
 	game.cam.x = -0.66;
 	game.cam.y = 0;
-	game.mlx = mlx_init();
 	game.win = mlx_new_window(game.mlx, WIDTH, HEIGHT, "Cub3D");
 	mlx_do_sync(game.mlx);
 	mlx_hook(game.win, 2, 1L<<0, key_down, &game);

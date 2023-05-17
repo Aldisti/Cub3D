@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/17 11:23:54 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/17 11:28:04 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,14 @@ typedef struct s_img
 
 typedef struct s_pars
 {
-	const char	*path;
-	char		*line;
-	char		*ids[6];
-	char		**mat;
-	int			width;
-	int			height;
-	int			offset;
+	const char		*path;
+	char			*line;
+	char			*ids[6];
+	char			**mat;
+	int				width;
+	int				height;
+	int				offset;
+	struct s_game	*game;
 }	t_pars;
 
 typedef struct s_game
@@ -92,6 +93,9 @@ int		ft_check_info(t_game *game);
 int		ft_check_num(const char *num);
 int		ft_check_se(const char *s1, const char *s2);
 int		ft_space_cmp(const char *s1, const char *s2);
+// init
+void	ft_init(t_game *game);
+void	ft_init_pars(t_game *game);
 
 // Utils
 // get_next_line
