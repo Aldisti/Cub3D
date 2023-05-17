@@ -17,8 +17,9 @@
 #  define BUFFER_SIZE 1
 # endif
 
-# define WIDTH 1080
-# define HEIGHT 480
+# define WIDTH 800
+# define HEIGHT 600
+
 # define SYMBOLS " 10NEWS"
 // errors
 # define NO_MISS "missing or invalid image for the north side"
@@ -71,6 +72,11 @@ typedef struct s_game
 	void	*win;
 	void	*img;
 	void	*addr;
+
+	int		z;
+	int		move_x;
+	int		move_y;
+	int		rotate;
 	int		bpp;
 	int		line_length;
 	int		endian;
