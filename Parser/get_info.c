@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 10:23:53 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/16 18:42:21 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/17 11:03:51 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,16 @@
 /*
 NORD
 x: 0 y: -1
+x: 0.66 y:0
 SUD
 x: 0 y: 1
+x: -0.66 y: 0
 EAST
 x: 1 y: 0
+x: 0 y: 0.66
 WEST
 x: -1 y: 0
+x: 0 y: -0.66
 */
 void	ft_get_pos(t_game *game, int y)
 {
@@ -77,15 +81,15 @@ int	ft_get_info(t_game *g, t_pars *pars)
 		tmp = ft_split(pars->ids[i], 32);
 		if (!tmp)
 			exit(110);
-		if (!ft_strcmp(tmp[0], "NO"))
+		if (!ft_strncmp(tmp[0], "NO", 3))
 			g->no.img = ft_xpm(g->mlx, tmp[1], &g->no.w, &g->no.h);
-		else if (!ft_strcmp(tmp[0], "SO"))
+		else if (!ft_strncmp(tmp[0], "SO", 3))
 			g->so.img = ft_xpm(g->mlx, tmp[1], &g->so.w, &g->so.h);
-		else if (!ft_strcmp(tmp[0], "WE"))
+		else if (!ft_strncmp(tmp[0], "WE", 3))
 			g->we.img = ft_xpm(g->mlx, tmp[1], &g->we.w, &g->we.h);
-		else if (!ft_strcmp(tmp[0], "EA"))
+		else if (!ft_strncmp(tmp[0], "EA", 3))
 			g->ea.img = ft_xpm(g->mlx, tmp[1], &g->ea.w, &g->ea.h);
-		else if ((!ft_strcmp(tmp[0], "F") || !ft_strcmp(tmp[0], "C"))
+		else if ((!ft_strncmp(tmp[0], "F", 2) || !ft_strncmp(tmp[0], "C", 2))
 			&& ft_get_color(g, tmp[0][0], tmp[1]))
 			return (ft_free_mat((void ***)&tmp) + 1);
 		ft_free_mat((void ***)&tmp);

@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:53:33 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/16 11:12:50 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/17 11:01:57 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,13 +129,13 @@ int	main(int ac, char **av)
 		return (write(2, "Error: arguments\n", 17) - 16);
 	game.pars.path = av[1];
 	ft_init(&game);
+	game.mlx = mlx_init();
 	if (ft_parser(&game))
 	{
 		ft_die(&game);
 		return (1);
 	}
 	printf("ciao\n");
-	game.mlx = mlx_init();
 	game.win = mlx_new_window(game.mlx, WIDTH, HEIGHT, "Cub3D");
 	ft_game(&game);
 	mlx_loop(game.mlx);
