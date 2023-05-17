@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/17 11:17:06 by gpanico          ###   ########.fr       */
+/*   Updated: 2023/05/17 11:23:54 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,13 @@ typedef struct s_vect
 	double	y;
 }	t_vect;
 
+typedef struct s_img
+{
+	void	*img;
+	int		w;
+	int		h;
+}	t_img;
+
 typedef struct s_pars
 {
 	const char	*path;
@@ -59,18 +66,10 @@ typedef struct s_game
 	int		bpp;
 	int		line_length;
 	int		endian;
-	void	*no;
-	int		no_w;
-	int		no_h;
-	void	*so;
-	int		so_w;
-	int		so_h;
-	void	*we;
-	int		we_w;
-	int		we_h;
-	void	*ea;
-	int		ea_w;
-	int		ea_h;
+	t_img	no;
+	t_img	so;
+	t_img	we;
+	t_img	ea;
 	int		f[3];
 	int		c[3];
 	t_vect		pos;
