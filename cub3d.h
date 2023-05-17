@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/17 11:33:11 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/17 11:34:11 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ int		ft_check_info(t_game *game);
 int		ft_check_num(const char *num);
 int		ft_check_se(const char *s1, const char *s2);
 int		ft_space_cmp(const char *s1, const char *s2);
+// get_info
+void	ft_get_pos(t_game *game, int y);
 // init
 void	ft_init(t_game *game);
 void	ft_init_pars(t_game *game);
