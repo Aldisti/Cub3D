@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/17 11:34:11 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/17 11:35:07 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,6 @@ typedef struct s_game
 int		ft_parser(t_game *game);
 int		ft_getdim(t_pars *pars);
 int		ft_getmat(t_pars *pars);
-int		ft_get_info(t_game *g, t_pars *pars);
-int		ft_get_color(t_game *game, const char type, const char *rgb);
 // checker
 int		ft_check_mat(t_pars *pars);
 int		ft_check_info(t_game *game);
@@ -107,6 +105,8 @@ int		ft_check_se(const char *s1, const char *s2);
 int		ft_space_cmp(const char *s1, const char *s2);
 // get_info
 void	ft_get_pos(t_game *game, int y);
+int		ft_get_info(t_game *g, t_pars *pars);
+int		ft_get_color(t_game *game, const char type, const char *rgb);
 // init
 void	ft_init(t_game *game);
 void	ft_init_pars(t_game *game);
@@ -141,5 +141,7 @@ char	*ft_strdup(char const *str);
 char	**ft_split(char const *s, char c);
 void	*ft_calloc(size_t num, size_t dim);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
+// mlx_wrap
+void	*ft_xpm(void *mlx, char *str, int *w, int *h);
 
 #endif
