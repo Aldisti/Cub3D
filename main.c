@@ -77,6 +77,7 @@ int	ft_game(void *param)
 	int	lineheight;
 	int	drawStart;
 	int	drawEnd;
+
 	double	dir_x, dir_y, cam_x, cam_y;
 	double	deltaDistX, deltaDistY;
 	double	sideDistX, sideDistY;
@@ -260,7 +261,11 @@ int	main(int ac, char **av)
 	game.pars.path = av[1];
 	ft_init(&game);
 	game.mlx = mlx_init();
-	ft_parser(&game);
+	if (ft_parser(&game))
+	{
+		ft_die(&game);
+		return (1);
+	}
 	game.cam.x = -0.66;
 	game.cam.y = 0;
 	game.win = mlx_new_window(game.mlx, WIDTH, HEIGHT, "Cub3D");

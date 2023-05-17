@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/17 11:35:07 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/16 11:39:47 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 # define WIDTH 800
 # define HEIGHT 600
+
 # define SYMBOLS " 10NEWS"
 // errors
 # define NO_MISS "missing or invalid image for the north side"
@@ -39,7 +40,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include "mlx/mlx.h"
-
 
 typedef struct s_vect
 {
@@ -72,6 +72,7 @@ typedef struct s_game
 	void	*win;
 	void	*img;
 	void	*addr;
+
 	int		z;
 	int		move_x;
 	int		move_y;
