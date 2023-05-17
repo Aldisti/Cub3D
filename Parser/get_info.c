@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 10:23:53 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/17 12:01:23 by gpanico          ###   ########.fr       */
+/*   Updated: 2023/05/17 13:02:50 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,14 @@ void	ft_get_pos(t_game *game, int y)
 	}
 	printf("posX: %f - posY: %f - dirX: %f - dirY: %f\n", game->pos.x, game->pos.y, game->dir.x, game->dir.y);
 	return ;
+}
+
+void	ft_get_data(t_game *game)
+{	
+	game->no.addr = mlx_get_data_addr(game->no.img, &game->no.bpp, &game->no.line_length, &game->no.endian);
+	game->so.addr = mlx_get_data_addr(game->so.img, &game->so.bpp, &game->so.line_length, &game->so.endian);
+	game->ea.addr = mlx_get_data_addr(game->ea.img, &game->ea.bpp, &game->ea.line_length, &game->ea.endian);
+	game->we.addr = mlx_get_data_addr(game->we.img, &game->we.bpp, &game->we.line_length, &game->we.endian);
 }
 
 int	ft_get_color(t_game *game, const char type, const char *rgb)

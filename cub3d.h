@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/16 11:39:47 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/17 12:55:52 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,12 @@ typedef struct s_vect
 typedef struct s_img
 {
 	void	*img;
+	void	*addr;
 	int		w;
 	int		h;
+	int		bpp;
+	int		line_length;
+	int		endian;
 }	t_img;
 
 typedef struct s_pars
@@ -106,6 +110,7 @@ int		ft_check_se(const char *s1, const char *s2);
 int		ft_space_cmp(const char *s1, const char *s2);
 // get_info
 void	ft_get_pos(t_game *game, int y);
+void	ft_get_data(t_game *game);
 int		ft_get_info(t_game *g, t_pars *pars);
 int		ft_get_color(t_game *game, const char type, const char *rgb);
 // init

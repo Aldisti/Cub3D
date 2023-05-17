@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:53:33 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/17 12:08:20 by gpanico          ###   ########.fr       */
+/*   Updated: 2023/05/17 13:01:32 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,13 +224,30 @@ int	ft_game(void *param)
 				drawEnd = HEIGHT - 1;
 			char *dst;
 			int	n;
+			double	wallx;
+			double	texpos;
+			int	texx;
+			int	texy;
+			float	step;
+
+			if (!side)
+				wallx = game->pos.y + perpWallDist * game->ray.y;
+			else
+				wallx = game->pos.x + perpWallDist * game->ray.x;
+			wallx -= (int) wallx;
+			texx = (int) (wallx * (double) game->ea.w);
+			//inversion?
+			step = game->ea.h / lineheight;
+			texpos = 0.0f;
 			n = 0;
 			while (n < HEIGHT)
 			{
 				if (n >= drawStart && n <= drawEnd)
 				{
+					texy = (int) texpos;
+					texpos += step;
 					dst = game->addr + (i * (game->bpp / 8) + n * game->line_length);
-					*(unsigned int *)dst = 0xff0000;
+					*(unsigned int *)dst = *(unsigned int *)(game->ea.addr + (texx * (game->ea.bpp / 8) + texy * game->ea.line_length));
 				}
 				else if (n < drawStart)
 				{
