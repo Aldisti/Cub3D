@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:53:33 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/17 11:26:49 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/17 12:08:20 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int	ft_game(void *param)
 			game->pos.x += (game->dir.y * 0.05);
 			game->pos.y += ((-1) * game->dir.x * 0.05);
 		}
-		if (game->move_y == 1 && game->dir.y)
+		if (game->move_y == 1)
 		{
 			game->pos.y += (game->dir.y * 0.05);
 			game->pos.x += (game->dir.x * 0.05);
@@ -266,8 +266,6 @@ int	main(int ac, char **av)
 		ft_die(&game);
 		return (1);
 	}
-	game.cam.x = -0.66;
-	game.cam.y = 0;
 	game.win = mlx_new_window(game.mlx, WIDTH, HEIGHT, "Cub3D");
 	mlx_do_sync(game.mlx);
 	mlx_hook(game.win, 2, 1L<<0, key_down, &game);

@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 10:23:53 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/17 11:03:51 by gpanico          ###   ########.fr       */
+/*   Updated: 2023/05/17 12:01:23 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,25 @@ void	ft_get_pos(t_game *game, int y)
 	game->pos.x = (float)i + 0.5f;
 	game->pos.y = (float)y + 0.5f;
 	if (game->pars.mat[y][i] == 'N')
+	{
 		game->dir.y = -1;
+		game->cam.x = 0.66;
+	}
 	else if (game->pars.mat[y][i] == 'S')
+	{
 		game->dir.y = 1;
+		game->cam.x = -0.66;
+	}
 	else if (game->pars.mat[y][i] == 'E')
+	{
 		game->dir.x = 1;
+		game->cam.y = 0.66;
+	}
 	else if (game->pars.mat[y][i] == 'W')
+	{
 		game->dir.x = -1;
+		game->cam.y = -0.66;
+	}
 	printf("posX: %f - posY: %f - dirX: %f - dirY: %f\n", game->pos.x, game->pos.y, game->dir.x, game->dir.y);
 	return ;
 }
