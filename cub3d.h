@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/17 11:28:04 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/17 11:33:11 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,18 @@
 # define WIDTH 800
 # define HEIGHT 600
 # define SYMBOLS " 10NEWS"
+// errors
+# define NO_MISS "missing or invalid image for the north side"
+# define SO_MISS "missing or invalid image for the south side"
+# define WE_MISS "missing or invalid image for the west side"
+# define EA_MISS "missing or invalid image for the east side"
+# define PL_MISS "player position missig"
+# define INV_COL "invalid colors"
+# define INV_MAP "invalid map"
+// colors
+# define RED "\033[31m"
+# define BLKRED "\033[5;31m"
+# define RESET "\033[0;0;0m"
 
 # include <math.h>
 # include <fcntl.h>
@@ -110,6 +122,7 @@ char	*ft_realloc_get(char *str, char *buff);
 void	ft_die(t_game *game);
 int		ft_free(void **elem);
 int		ft_free_mat(void ***mat);
+int		ft_error(char *str, int code);
 // str
 int		ft_atoi(const char *str);
 void	ft_print_mat(char **mat);

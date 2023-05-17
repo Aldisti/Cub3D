@@ -6,11 +6,28 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 11:35:37 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/17 11:30:12 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/16 11:32:49 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+int	ft_error(char *str, int code)
+{
+	int	i;
+
+	write(2, BLKRED, 7);
+	write(2, "error", 5);
+	write(2, RESET, 8);
+	write(2, RED, 5);
+	write(2, ": ", 2);
+	i = 0;
+	while (str[i])
+		write(2, &str[i++], 1);
+	write(2, "\n", 1);
+	write(2, RESET, 8);
+	return (code);
+}
 
 int	ft_free(void **elem)
 {
