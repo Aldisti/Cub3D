@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:53:33 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/16 16:21:02 by gpanico          ###   ########.fr       */
+/*   Updated: 2023/05/17 11:11:24 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int	ft_game(void *param)
 
 	game = (t_game *)param;
 
-	if (game->move_x || game->move_y || game->rotate)
+	if (game->move_x || game->move_y || game->rotate || game->z == 16)
 	{
 		game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 		game->addr = mlx_get_data_addr(game->img, &game->bpp, &game->line_length, &game->endian);
@@ -275,7 +275,7 @@ int	ft_game(void *param)
 				n++;	
 			}
 		}
-		mlx_clear_window(game->mlx, game->win);
+	//	mlx_clear_window(game->mlx, game->win);
 		mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 		mlx_destroy_image(game->mlx, game->img);
 	}
