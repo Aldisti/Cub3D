@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:53:33 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/18 11:57:19 by gpanico          ###   ########.fr       */
+/*   Updated: 2023/05/18 12:30:20 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,25 @@ int	key_down(int keycode, void *param)
 		game->cam.x /=8;
 		game->cam.y /=8;
 		game->z = 16;
+	}
+	else if (keycode == ' ')
+	{
+		if (game->pars.mat[(int) game->pos.y + 1][(int) game->pos.x] == 'D')
+			game->pars.mat[(int) game->pos.y + 1][(int) game->pos.x] = 'd';
+		else if (game->pars.mat[(int) game->pos.y + 1][(int) game->pos.x] == 'd')
+			game->pars.mat[(int) game->pos.y + 1][(int) game->pos.x] = 'D';
+		if (game->pars.mat[(int) game->pos.y - 1][(int) game->pos.x] == 'D')
+			game->pars.mat[(int) game->pos.y - 1][(int) game->pos.x] = 'd';
+		else if (game->pars.mat[(int) game->pos.y - 1][(int) game->pos.x] == 'd')
+			game->pars.mat[(int) game->pos.y - 1][(int) game->pos.x] = 'D';
+		if (game->pars.mat[(int) game->pos.y][(int) game->pos.x + 1] == 'D')
+			game->pars.mat[(int) game->pos.y][(int) game->pos.x + 1] = 'd';
+		else if (game->pars.mat[(int) game->pos.y][(int) game->pos.x + 1] == 'd')
+			game->pars.mat[(int) game->pos.y][(int) game->pos.x + 1] = 'D';
+		if (game->pars.mat[(int) game->pos.y][(int) game->pos.x - 1] == 'D')
+			game->pars.mat[(int) game->pos.y][(int) game->pos.x - 1] = 'd';
+		else if (game->pars.mat[(int) game->pos.y][(int) game->pos.x - 1] == 'd')
+			game->pars.mat[(int) game->pos.y][(int) game->pos.x - 1] = 'D';
 	}
 	else if (keycode == 65307)
 		ft_close(param);
@@ -253,7 +272,7 @@ int	ft_game(void *param)
 			texx = (int) (wallx * (double) cur.w);
 
 			//inversion?
-			if ((side == 0 && game->ray.x > 0) || (side == 1 && game->ray.y < 0))
+			if ((side == 0 && game->ray.x < 0) || (side == 1 && game->ray.y > 0))
 				texx = cur.w - texx - 1;
 			step = cur.h / (float) lineheight;
 			texpos = (drawStart - HEIGHT / 2 + lineheight / 2) * step;

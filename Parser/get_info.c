@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 10:23:53 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/18 11:56:39 by gpanico          ###   ########.fr       */
+/*   Updated: 2023/05/18 12:12:35 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ft_get_data(t_game *game)
 	game->ea.addr = mlx_get_data_addr(game->ea.img, &game->ea.bpp, &game->ea.line_length, &game->ea.endian);
 	game->we.addr = mlx_get_data_addr(game->we.img, &game->we.bpp, &game->we.line_length, &game->we.endian);
 	game->dr.img = ft_xpm(game->mlx, "images/door.xpm", &game->dr.w, &game->dr.h);
-	game->dr.addr = mlx_get_data_addr(game->we.img, &game->we.bpp, &game->we.line_length, &game->we.endian);
+	game->dr.addr = mlx_get_data_addr(game->dr.img, &game->dr.bpp, &game->dr.line_length, &game->dr.endian);
 }
 
 int	ft_get_color(t_game *game, const char type, const char *rgb)
