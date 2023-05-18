@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:53:33 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/18 17:44:15 by gpanico          ###   ########.fr       */
+/*   Updated: 2023/05/18 18:14:19 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,109 +14,9 @@
 
 int	ft_game(void *param);
 
-int	key_down(int keycode, void *param)
-{
-	t_game	*game;
-
-	game = (t_game *) param;
-	if (keycode == 'w')
-		game->move_y = 1;
-	else if (keycode == 's')
-		game->move_y = -1;
-	else if (keycode == 'd')
-		game->move_x = 1;
-	else if (keycode == 'a')
-		game->move_x = -1;
-	else if (keycode == 65361)
-		game->rotate = -1;
-	else if (keycode == 65363)
-		game->rotate = 1;
-	else if (keycode == 'z')
-	{
-		game->cam.x /=8;
-		game->cam.y /=8;
-		game->z = 16;
-	}
-	else if (keycode == ' ')
-	{
-		if (game->pars.mat[(int) game->pos.y + 1][(int) game->pos.x] == 'D')
-			game->pars.mat[(int) game->pos.y + 1][(int) game->pos.x] = 'd';
-		else if (game->pars.mat[(int) game->pos.y + 1][(int) game->pos.x] == 'd')
-			game->pars.mat[(int) game->pos.y + 1][(int) game->pos.x] = 'D';
-		if (game->pars.mat[(int) game->pos.y - 1][(int) game->pos.x] == 'D')
-			game->pars.mat[(int) game->pos.y - 1][(int) game->pos.x] = 'd';
-		else if (game->pars.mat[(int) game->pos.y - 1][(int) game->pos.x] == 'd')
-			game->pars.mat[(int) game->pos.y - 1][(int) game->pos.x] = 'D';
-		if (game->pars.mat[(int) game->pos.y][(int) game->pos.x + 1] == 'D')
-			game->pars.mat[(int) game->pos.y][(int) game->pos.x + 1] = 'd';
-		else if (game->pars.mat[(int) game->pos.y][(int) game->pos.x + 1] == 'd')
-			game->pars.mat[(int) game->pos.y][(int) game->pos.x + 1] = 'D';
-		if (game->pars.mat[(int) game->pos.y][(int) game->pos.x - 1] == 'D')
-			game->pars.mat[(int) game->pos.y][(int) game->pos.x - 1] = 'd';
-		else if (game->pars.mat[(int) game->pos.y][(int) game->pos.x - 1] == 'd')
-			game->pars.mat[(int) game->pos.y][(int) game->pos.x - 1] = 'D';
-	}
-	else if (keycode == 65307)
-		ft_close(param);
-	return (0);
-}
-
-int	key_up(int keycode, void *param)
-{
-	t_game	*game;
-
-	game = (t_game *) param;
-	if (keycode == 'w' || keycode == 's')
-		game->move_y = 0;
-	else if (keycode == 'd' || keycode == 'a')
-		game->move_x = 0;
-	else if (keycode == 65361 || keycode == 65363)
-		game->rotate = 0;
-	else if (keycode == 'z')
-	{
-		game->cam.x *=8;
-		game->cam.y *=8;
-		game->z = 2;
-	}
-	return (0);
-}
-
 int	create_trgb(int t, int r, int g, int b)
 {
 	return ((t << 24) | (r << 16) | (g << 8) | b);
-}
-
-int	ft_mouse(int x, int y, void *param)
-{
-	t_game	*game;
-	double	dir_x;
-	double	dir_y;
-	double	cam_x;
-	double	cam_y;
-
-	game = (t_game *) param;
-	(void) y;
-	mlx_mouse_hide(game->mlx, game->win);
-	dir_x = game->dir.x;
-	dir_y = game->dir.y;
-	cam_x = game->cam.x;
-	cam_y = game->cam.y;
-	if (x > game->x)
-	{
-		game->dir.x = dir_x * cos(2 * M_PI / (double) WIDTH) + dir_y * sin(2 * M_PI / (double) WIDTH);
-		game->dir.y = (-1) * dir_x * sin(2 * M_PI / (double) WIDTH) + dir_y * cos(2 * M_PI / (double) WIDTH);
-		game->cam.x = cam_x * cos(2 * M_PI / (double) WIDTH) + cam_y * sin(2 * M_PI / (double) WIDTH);
-		game->cam.y = (-1) * cam_x * sin(2 * M_PI / (double) WIDTH) + cam_y * cos(2 * M_PI / (double) WIDTH);
-	}
-	else if (x < game->x)
-	{
-		game->dir.x = dir_x * cos(2 * M_PI / (double) WIDTH) - dir_y * sin(2 * M_PI / (double) WIDTH);
-		game->dir.y = dir_x * sin(2 * M_PI / (double) WIDTH) + dir_y * cos(2 * M_PI / (double) WIDTH);
-		game->cam.x = cam_x * cos(2 * M_PI / (double) WIDTH) - cam_y * sin(2 * M_PI / (double) WIDTH);
-		game->cam.y = cam_x * sin(2 * M_PI / (double) WIDTH) + cam_y * cos(2 * M_PI / (double) WIDTH);	
-	}
-	game->x = x;
-	return (0);
 }
 
 int	ft_game(void *param)
@@ -130,7 +30,6 @@ int	ft_game(void *param)
 	int	drawStart;
 	int	drawEnd;
 
-	double	dir_x, dir_y, cam_x, cam_y;
 	double	deltaDistX, deltaDistY;
 	double	sideDistX, sideDistY;
 	double	posX, posY;
@@ -142,61 +41,10 @@ int	ft_game(void *param)
 	{
 		game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 		game->addr = mlx_get_data_addr(game->img, &game->bpp, &game->line_length, &game->endian);
-		dir_x = game->dir.x;
-		dir_y = game->dir.y;
-		cam_x = game->cam.x;
-		cam_y = game->cam.y;
 
-		//rotate
-		if (game->rotate == -1)
-		{
-			game->dir.x = dir_x * cos(M_PI / 180.0f) + dir_y * sin(M_PI / 180.0f);
-			game->dir.y = (-1) * dir_x * sin(M_PI / 180.0f) + dir_y * cos(M_PI / 180.0f);
-			game->cam.x = cam_x * cos(M_PI / 180.0f) + cam_y * sin(M_PI / 180.0f);
-			game->cam.y = (-1) * cam_x * sin(M_PI / 180.0f) + cam_y * cos(M_PI / 180.0f);
-		}
-		else if (game->rotate == 1)
-		{
-			game->dir.x = dir_x * cos(M_PI / 180.0f) - dir_y * sin(M_PI / 180.0f);
-			game->dir.y = dir_x * sin(M_PI / 180.0f) + dir_y * cos(M_PI / 180.0f);
-			game->cam.x = cam_x * cos(M_PI / 180.0f) - cam_y * sin(M_PI / 180.0f);
-			game->cam.y = cam_x * sin(M_PI / 180.0f) + cam_y * cos(M_PI / 180.0f);
-		}
+		ft_rotate(game, game->rotate, M_PI / 180.0f);
 		// move
-		if (game->move_x == 1)
-		{
-			game->pos.x += ((-1) * game->dir.y * 0.05);
-			game->pos.y += (game->dir.x * 0.05);
-		}
-		if (game->move_x == -1)
-		{
-			game->pos.x += (game->dir.y * 0.05);
-			game->pos.y += ((-1) * game->dir.x * 0.05);
-		}
-		if (game->move_y == 1)
-		{
-			game->pos.y += (game->dir.y * 0.05);
-			game->pos.x += (game->dir.x * 0.05);
-		}
-		if (game->move_y == -1)
-		{
-			game->pos.y += ((-1) * game->dir.y * 0.05);
-			game->pos.x += ((-1) * game->dir.x * 0.05);
-		}
-
-		// check boundary
-		if (ft_in(game->pars.mat[(int) game->pos.y][(int)game->pos.x + 1], WALLS)
-				&& game->pos.x > (int)game->pos.x + 1 - 0.25f)
-			game->pos.x = (int)game->pos.x + 1 - 0.25f;
-		if (ft_in(game->pars.mat[(int) game->pos.y][(int)game->pos.x - 1], WALLS)
-				&& game->pos.x < (int)game->pos.x + 0.25f)
-			game->pos.x = (int)game->pos.x + 0.25f;
-		if (ft_in(game->pars.mat[(int) game->pos.y + 1][(int)game->pos.x], WALLS)
-				&& game->pos.y > (int)game->pos.y + 1 - 0.25f)
-			game->pos.y = (int)game->pos.y + 1 - 0.25f;
-		if (ft_in(game->pars.mat[(int) game->pos.y - 1][(int)game->pos.x], WALLS)
-				&& game->pos.y < (int)game->pos.y + 0.25f)
-			game->pos.y = (int)game->pos.y + 0.25f;
+		ft_move(game);
 
 		for (int i = 0; i < WIDTH; i++)
 		{
@@ -216,7 +64,6 @@ int	ft_game(void *param)
 				deltaDistY = 1e30;
 			else
 				deltaDistY = fabs(1 / game->ray.y);
-
 			if (game->ray.x < 0)
 			{
 				stepX = -1;

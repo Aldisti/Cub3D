@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/18 17:40:49 by gpanico          ###   ########.fr       */
+/*   Updated: 2023/05/18 18:13:09 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 #  define BUFFER_SIZE 1
 # endif
 
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 1000
+# define HEIGHT 700
 
 # define SYMBOLS " 10NEWSDd"
 # define WALLS "1D"
@@ -102,6 +102,19 @@ typedef struct s_game
 	t_vect		ray;
 	t_pars		pars;
 }	t_game;
+
+// Game
+// key_hook
+void	ft_zoom(t_game *game);
+void	ft_update_wall(t_game *game);
+int		key_up(int keycode, void *param);
+int		key_down(int keycode, void *param);
+// mouse_hook
+int		ft_mouse(int x, int y, void *param);
+void	ft_rotate(t_game *game, int type, double rad);
+// movement
+void	ft_move(t_game *game);
+void	ft_check_boundary(t_game *game);
 
 // Parser
 // parser
