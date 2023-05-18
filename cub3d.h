@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/17 12:55:52 by gpanico          ###   ########.fr       */
+/*   Updated: 2023/05/18 10:49:08 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #  define BUFFER_SIZE 1
 # endif
 
-# define WIDTH 800
+# define WIDTH 1280
 # define HEIGHT 600
 
 # define SYMBOLS " 10NEWS"
@@ -131,6 +131,7 @@ void	ft_die(t_game *game);
 int		ft_free(void **elem);
 int		ft_free_mat(void ***mat);
 int		ft_error(char *str, int code);
+int		ft_close(void *param);
 // str
 int		ft_atoi(const char *str);
 void	ft_print_mat(char **mat);

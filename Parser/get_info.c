@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 10:23:53 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/17 13:02:50 by gpanico          ###   ########.fr       */
+/*   Updated: 2023/05/18 10:54:01 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	ft_get_pos(t_game *game, int y)
 		game->dir.x = -1;
 		game->cam.y = -0.66;
 	}
-	printf("posX: %f - posY: %f - dirX: %f - dirY: %f\n", game->pos.x, game->pos.y, game->dir.x, game->dir.y);
 	return ;
 }
 

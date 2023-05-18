@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:53:33 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/17 13:01:32 by gpanico          ###   ########.fr       */
+/*   Updated: 2023/05/18 10:53:24 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	key_down(int keycode, void *param)
 		game->z = 16;
 	}
 	else if (keycode == 65307)
-		exit(1);
+		ft_close(param);
 	return (0);
 }
 
@@ -215,7 +215,7 @@ int	ft_game(void *param)
 				perpWallDist = sideDistY - deltaDistY;
 			//perpWallDist = sqrtf(sideDistY * sideDistY + sideDistX * sideDistX);
 			//printf("Dist: %f\n", perpWallDist);
-			lineheight = (int) (game->z * HEIGHT / perpWallDist);
+			lineheight = (int) ( game->z * HEIGHT / perpWallDist);
 			drawStart = HEIGHT / 2 - lineheight / 2;
 			if (drawStart < 0)
 				drawStart  = 0;
@@ -234,11 +234,27 @@ int	ft_game(void *param)
 				wallx = game->pos.y + perpWallDist * game->ray.y;
 			else
 				wallx = game->pos.x + perpWallDist * game->ray.x;
-			wallx -= (int) wallx;
-			texx = (int) (wallx * (double) game->ea.w);
+			wallx -= floor(wallx);
+
+			//img
+			t_img	cur;
+
+			if (side == 0 && game->ray.x < 0)
+				cur = game->ea;
+			if (side == 0 && game->ray.x > 0)
+				cur = game->we;
+			if (side == 1 && game->ray.y < 0)
+				cur = game->no;
+			if (side == 1 && game->ray.y > 0)
+				cur = game->so;
+
+			texx = (int) (wallx * (double) cur.w);
+
 			//inversion?
-			step = game->ea.h / lineheight;
-			texpos = 0.0f;
+			if ((side == 0 && game->ray.x > 0) || (side == 1 && game->ray.y < 0))
+				texx = cur.w - texx - 1;
+			step = cur.h / (float) lineheight;
+			texpos = (drawStart - HEIGHT / 2 + lineheight / 2) * step;
 			n = 0;
 			while (n < HEIGHT)
 			{
@@ -247,14 +263,15 @@ int	ft_game(void *param)
 					texy = (int) texpos;
 					texpos += step;
 					dst = game->addr + (i * (game->bpp / 8) + n * game->line_length);
-					*(unsigned int *)dst = *(unsigned int *)(game->ea.addr + (texx * (game->ea.bpp / 8) + texy * game->ea.line_length));
+					*(unsigned int *)dst = *(unsigned int *)(cur.addr +
+							(texx * (cur.bpp / 8) + texy * cur.line_length));
 				}
 				else if (n < drawStart)
 				{
 					dst = game->addr + (i * (game->bpp / 8) + n * game->line_length);
 					*(unsigned int *)dst = create_trgb(1, game->c[0], game->c[1], game->c[2]);
 				}
-				else if (n > drawEnd)
+				else if (n >= drawEnd)
 				{
 					dst = game->addr + (i * (game->bpp / 8) + n * game->line_length);
 					*(unsigned int *)dst = create_trgb(1, game->f[0], game->f[1], game->f[2]);
@@ -287,6 +304,7 @@ int	main(int ac, char **av)
 	mlx_do_sync(game.mlx);
 	mlx_hook(game.win, 2, 1L<<0, key_down, &game);
 	mlx_hook(game.win, 3, 1L<<1, key_up, &game);
+	mlx_hook(game.win, 17, 0, ft_close, &game);
 	//mlx_key_hook(game.win, key_hook, &game);
 	mlx_loop_hook(game.mlx, ft_game, &game);
 	mlx_loop(game.mlx);
