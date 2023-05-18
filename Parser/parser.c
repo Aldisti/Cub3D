@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 11:56:51 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/17 12:52:30 by gpanico          ###   ########.fr       */
+/*   Updated: 2023/05/18 13:40:22 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,5 @@ int	ft_parser(t_game *game)
 		return (ft_error(INV_COL, 1));
 	if (ft_check_info(game))
 		return (1);
-	ft_get_data(game);
 	return (0);
 }

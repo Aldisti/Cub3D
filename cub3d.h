@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/18 11:54:55 by gpanico          ###   ########.fr       */
+/*   Updated: 2023/05/18 14:01:00 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define SO_MISS "missing or invalid image for the south side"
 # define WE_MISS "missing or invalid image for the west side"
 # define EA_MISS "missing or invalid image for the east side"
+# define DR_MISS "missing or invalid door image"
 # define PL_MISS "player position missig"
 # define INV_COL "invalid colors"
 # define INV_MAP "invalid map"
@@ -111,8 +112,9 @@ int		ft_check_num(const char *num);
 int		ft_check_se(const char *s1, const char *s2);
 int		ft_space_cmp(const char *s1, const char *s2);
 // get_info
-void	ft_get_pos(t_game *game, int y);
 void	ft_get_data(t_game *game);
+void	ft_get_pos(t_game *game, int y);
+int		ft_check_door(t_pars *pars, int j);
 int		ft_get_info(t_game *g, t_pars *pars);
 int		ft_get_color(t_game *game, const char type, const char *rgb);
 // init
@@ -143,6 +145,7 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t	ft_strlen(char const *str);
 size_t	ft_matlen(char const **mat);
 // in
+int		ft_count(char c, char *str);
 int		ft_in(char c, const char *chars);
 // dup
 char	*ft_strdup(char const *str);

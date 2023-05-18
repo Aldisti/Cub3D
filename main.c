@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:53:33 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/18 11:57:19 by gpanico          ###   ########.fr       */
+/*   Updated: 2023/05/18 14:02:24 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -293,7 +293,7 @@ int	main(int ac, char **av)
 	t_game	game;
 
 	if (ac != 2)
-		return (write(2, "Error: arguments\n", 17) - 16);
+		return (ft_error("arguments", 1));
 	game.pars.path = av[1];
 	ft_init(&game);
 	game.mlx = mlx_init();
