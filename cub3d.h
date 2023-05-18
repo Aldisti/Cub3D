@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/18 14:57:54 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/18 17:40:49 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ typedef struct s_game
 	void	*win;
 	void	*img;
 	void	*addr;
-
+	int		x;
 	int		z;
 	int		move_x;
 	int		move_y;

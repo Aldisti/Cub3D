@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:53:33 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/18 12:30:20 by gpanico          ###   ########.fr       */
+/*   Updated: 2023/05/18 17:44:15 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,39 @@ int	key_up(int keycode, void *param)
 int	create_trgb(int t, int r, int g, int b)
 {
 	return ((t << 24) | (r << 16) | (g << 8) | b);
+}
+
+int	ft_mouse(int x, int y, void *param)
+{
+	t_game	*game;
+	double	dir_x;
+	double	dir_y;
+	double	cam_x;
+	double	cam_y;
+
+	game = (t_game *) param;
+	(void) y;
+	mlx_mouse_hide(game->mlx, game->win);
+	dir_x = game->dir.x;
+	dir_y = game->dir.y;
+	cam_x = game->cam.x;
+	cam_y = game->cam.y;
+	if (x > game->x)
+	{
+		game->dir.x = dir_x * cos(2 * M_PI / (double) WIDTH) + dir_y * sin(2 * M_PI / (double) WIDTH);
+		game->dir.y = (-1) * dir_x * sin(2 * M_PI / (double) WIDTH) + dir_y * cos(2 * M_PI / (double) WIDTH);
+		game->cam.x = cam_x * cos(2 * M_PI / (double) WIDTH) + cam_y * sin(2 * M_PI / (double) WIDTH);
+		game->cam.y = (-1) * cam_x * sin(2 * M_PI / (double) WIDTH) + cam_y * cos(2 * M_PI / (double) WIDTH);
+	}
+	else if (x < game->x)
+	{
+		game->dir.x = dir_x * cos(2 * M_PI / (double) WIDTH) - dir_y * sin(2 * M_PI / (double) WIDTH);
+		game->dir.y = dir_x * sin(2 * M_PI / (double) WIDTH) + dir_y * cos(2 * M_PI / (double) WIDTH);
+		game->cam.x = cam_x * cos(2 * M_PI / (double) WIDTH) - cam_y * sin(2 * M_PI / (double) WIDTH);
+		game->cam.y = cam_x * sin(2 * M_PI / (double) WIDTH) + cam_y * cos(2 * M_PI / (double) WIDTH);	
+	}
+	game->x = x;
+	return (0);
 }
 
 int	ft_game(void *param)
@@ -326,6 +359,7 @@ int	main(int ac, char **av)
 	mlx_hook(game.win, 2, 1L<<0, key_down, &game);
 	mlx_hook(game.win, 3, 1L<<1, key_up, &game);
 	mlx_hook(game.win, 17, 0, ft_close, &game);
+	mlx_hook(game.win, 6, 1L<<6,ft_mouse, &game);
 	//mlx_key_hook(game.win, key_hook, &game);
 	mlx_loop_hook(game.mlx, ft_game, &game);
 	mlx_loop(game.mlx);
