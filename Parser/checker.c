@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 16:20:49 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/18 13:46:41 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/18 14:30:43 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ int	ft_check_mat(t_pars *pars)
 			return (33);
 		if (j < pars->height - 1 && ft_check_se(pars->mat[j + 1], pars->mat[j]))
 			return (33);
-		if (j > 0 && j < pars->height - 1 && ft_check_door(pars, j))
+		if (j && j < pars->height - 1 && ft_check_door(pars, j))
 			return (34);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/18 14:01:00 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/18 14:57:54 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,14 @@
 #  define BUFFER_SIZE 1
 # endif
 
-# define WIDTH 1280
-# define HEIGHT 600
+# define WIDTH 1920
+# define HEIGHT 1080
 
 # define SYMBOLS " 10NEWSDd"
 # define WALLS "1D"
+
+# define DR_CLS "images/door.xpm"
+
 // errors
 # define NO_MISS "missing or invalid image for the north side"
 # define SO_MISS "missing or invalid image for the south side"

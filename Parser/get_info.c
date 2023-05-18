@@ -6,11 +6,12 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 10:23:53 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/18 14:01:25 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/18 14:35:40 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
 /*
 NORD
 x: 0 y: -1
@@ -34,7 +35,6 @@ void	ft_get_pos(t_game *game, int y)
 		i++;
 	if (!game->pars.mat[y][i] || (game->pos.x != -1 && game->pos.y != -1))
 		return ;
-	game->pars.mat[y][i] = 48;
 	game->pos.x = (float)i + 0.5f;
 	game->pos.y = (float)y + 0.5f;
 	if (game->pars.mat[y][i] == 'N' && --game->dir.y)
@@ -58,10 +58,10 @@ void	ft_get_data(t_game *game)
 			&game->ea.line_length, &game->ea.endian);
 	game->we.addr = mlx_get_data_addr(game->we.img, &game->we.bpp,
 			&game->we.line_length, &game->we.endian);
-	game->dr.img = ft_xpm(game->mlx, "images/door.xpm",
-			&game->dr.w, &game->dr.h);
-	game->dr.addr = mlx_get_data_addr(game->we.img, &game->we.bpp,
-			&game->we.line_length, &game->we.endian);
+	game->dr.img = ft_xpm(game->mlx, DR_CLS, &game->dr.w, &game->dr.h);
+	if (game->dr.img)
+		game->dr.addr = mlx_get_data_addr(game->dr.img, &game->dr.bpp,
+				&game->dr.line_length, &game->dr.endian);
 	return ;
 }
 
@@ -121,21 +121,19 @@ int	ft_check_door(t_pars *pars, int j)
 	int		i;
 
 	i = 0;
-	while (pars->mat[j][i] && !ft_in(pars->mat[j][i], "dD"))
+	while (pars->mat[j][i] && !ft_in(pars->mat[j][i], "Dd"))
 		i++;
 	if (!pars->mat[j][i])
 		return (0);
 	tmp[0] = pars->mat[j][i - 1];
 	tmp[1] = pars->mat[j][i + 1];
 	tmp[2] = pars->mat[j - 1][i];
-	tmp[3] = pars->mat[j + 1][i];
+	tmp[2] = pars->mat[j + 1][i];
 	tmp[4] = 0;
 	if (ft_count(49, tmp) != 2)
 		return (1);
-	if ((ft_in(tmp[0], "Dd") && ft_in(tmp[2], "Dd"))
-		|| (ft_in(tmp[1], "Dd") && ft_in(tmp[3], "Dd"))
-		|| (ft_in(tmp[0], "Dd") && ft_in(tmp[3], "Dd"))
-		|| (ft_in(tmp[1], "Dd") && ft_in(tmp[2], "Dd")))
-		return (1);
-	return (0);
+	if ((ft_in(tmp[0], "1") && ft_in(tmp[1], "1"))
+		|| (ft_in(tmp[2], "1") && ft_in(tmp[3], "1")))
+		return (0);
+	return (1);
 }
