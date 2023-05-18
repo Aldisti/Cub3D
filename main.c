@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:53:33 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/18 10:53:24 by gpanico          ###   ########.fr       */
+/*   Updated: 2023/05/18 11:57:19 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,16 +133,16 @@ int	ft_game(void *param)
 		}
 
 		// check boundary
-		if (game->pars.mat[(int) game->pos.y][(int)game->pos.x + 1] == '1'
+		if (ft_in(game->pars.mat[(int) game->pos.y][(int)game->pos.x + 1], WALLS)
 				&& game->pos.x > (int)game->pos.x + 1 - 0.25f)
 			game->pos.x = (int)game->pos.x + 1 - 0.25f;
-		if (game->pars.mat[(int) game->pos.y][(int)game->pos.x - 1] == '1'
+		if (ft_in(game->pars.mat[(int) game->pos.y][(int)game->pos.x - 1], WALLS)
 				&& game->pos.x < (int)game->pos.x + 0.25f)
 			game->pos.x = (int)game->pos.x + 0.25f;
-		if (game->pars.mat[(int) game->pos.y + 1][(int)game->pos.x] == '1'
+		if (ft_in(game->pars.mat[(int) game->pos.y + 1][(int)game->pos.x], WALLS)
 				&& game->pos.y > (int)game->pos.y + 1 - 0.25f)
 			game->pos.y = (int)game->pos.y + 1 - 0.25f;
-		if (game->pars.mat[(int) game->pos.y - 1][(int)game->pos.x] == '1'
+		if (ft_in(game->pars.mat[(int) game->pos.y - 1][(int)game->pos.x], WALLS)
 				&& game->pos.y < (int)game->pos.y + 0.25f)
 			game->pos.y = (int)game->pos.y + 0.25f;
 
@@ -206,8 +206,8 @@ int	ft_game(void *param)
 					posY += stepY;
 					side = 1;
 				}
-				if (game->pars.mat[(int) posY][(int) posX] == '1')
-					hit = 1;
+				if (ft_in(game->pars.mat[(int) posY][(int) posX], WALLS))
+					hit = 1 + (game->pars.mat[(int) posY][(int) posX] == 'D');
 			}
 			if (!side)
 				perpWallDist = sideDistX - deltaDistX;
@@ -239,13 +239,15 @@ int	ft_game(void *param)
 			//img
 			t_img	cur;
 
-			if (side == 0 && game->ray.x < 0)
+			if (hit == 2)
+				cur = game->dr; 
+			else if (side == 0 && game->ray.x < 0)
 				cur = game->ea;
-			if (side == 0 && game->ray.x > 0)
+			else if (side == 0 && game->ray.x > 0)
 				cur = game->we;
-			if (side == 1 && game->ray.y < 0)
+			else if (side == 1 && game->ray.y < 0)
 				cur = game->no;
-			if (side == 1 && game->ray.y > 0)
+			else if (side == 1 && game->ray.y > 0)
 				cur = game->so;
 
 			texx = (int) (wallx * (double) cur.w);

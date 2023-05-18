@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/18 10:49:08 by gpanico          ###   ########.fr       */
+/*   Updated: 2023/05/18 11:54:55 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 # define WIDTH 1280
 # define HEIGHT 600
 
-# define SYMBOLS " 10NEWS"
+# define SYMBOLS " 10NEWSDd"
+# define WALLS "1D"
 // errors
 # define NO_MISS "missing or invalid image for the north side"
 # define SO_MISS "missing or invalid image for the south side"
@@ -88,6 +89,7 @@ typedef struct s_game
 	t_img	so;
 	t_img	we;
 	t_img	ea;
+	t_img	dr;
 	int		f[3];
 	int		c[3];
 	t_vect		pos;
