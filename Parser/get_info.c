@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 10:23:53 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/17 11:03:51 by gpanico          ###   ########.fr       */
+/*   Updated: 2023/05/18 11:56:39 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,36 @@ void	ft_get_pos(t_game *game, int y)
 	game->pos.x = (float)i + 0.5f;
 	game->pos.y = (float)y + 0.5f;
 	if (game->pars.mat[y][i] == 'N')
+	{
 		game->dir.y = -1;
+		game->cam.x = 0.66;
+	}
 	else if (game->pars.mat[y][i] == 'S')
+	{
 		game->dir.y = 1;
+		game->cam.x = -0.66;
+	}
 	else if (game->pars.mat[y][i] == 'E')
+	{
 		game->dir.x = 1;
+		game->cam.y = 0.66;
+	}
 	else if (game->pars.mat[y][i] == 'W')
+	{
 		game->dir.x = -1;
-	printf("posX: %f - posY: %f - dirX: %f - dirY: %f\n", game->pos.x, game->pos.y, game->dir.x, game->dir.y);
+		game->cam.y = -0.66;
+	}
 	return ;
+}
+
+void	ft_get_data(t_game *game)
+{	
+	game->no.addr = mlx_get_data_addr(game->no.img, &game->no.bpp, &game->no.line_length, &game->no.endian);
+	game->so.addr = mlx_get_data_addr(game->so.img, &game->so.bpp, &game->so.line_length, &game->so.endian);
+	game->ea.addr = mlx_get_data_addr(game->ea.img, &game->ea.bpp, &game->ea.line_length, &game->ea.endian);
+	game->we.addr = mlx_get_data_addr(game->we.img, &game->we.bpp, &game->we.line_length, &game->we.endian);
+	game->dr.img = ft_xpm(game->mlx, "images/door.xpm", &game->dr.w, &game->dr.h);
+	game->dr.addr = mlx_get_data_addr(game->we.img, &game->we.bpp, &game->we.line_length, &game->we.endian);
 }
 
 int	ft_get_color(t_game *game, const char type, const char *rgb)

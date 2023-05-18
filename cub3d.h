@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/16 11:39:47 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:54:55 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@
 #  define BUFFER_SIZE 1
 # endif
 
-# define WIDTH 800
+# define WIDTH 1280
 # define HEIGHT 600
 
-# define SYMBOLS " 10NEWS"
+# define SYMBOLS " 10NEWSDd"
+# define WALLS "1D"
 // errors
 # define NO_MISS "missing or invalid image for the north side"
 # define SO_MISS "missing or invalid image for the south side"
@@ -50,8 +51,12 @@ typedef struct s_vect
 typedef struct s_img
 {
 	void	*img;
+	void	*addr;
 	int		w;
 	int		h;
+	int		bpp;
+	int		line_length;
+	int		endian;
 }	t_img;
 
 typedef struct s_pars
@@ -84,6 +89,7 @@ typedef struct s_game
 	t_img	so;
 	t_img	we;
 	t_img	ea;
+	t_img	dr;
 	int		f[3];
 	int		c[3];
 	t_vect		pos;
@@ -106,6 +112,7 @@ int		ft_check_se(const char *s1, const char *s2);
 int		ft_space_cmp(const char *s1, const char *s2);
 // get_info
 void	ft_get_pos(t_game *game, int y);
+void	ft_get_data(t_game *game);
 int		ft_get_info(t_game *g, t_pars *pars);
 int		ft_get_color(t_game *game, const char type, const char *rgb);
 // init
@@ -126,6 +133,7 @@ void	ft_die(t_game *game);
 int		ft_free(void **elem);
 int		ft_free_mat(void ***mat);
 int		ft_error(char *str, int code);
+int		ft_close(void *param);
 // str
 int		ft_atoi(const char *str);
 void	ft_print_mat(char **mat);

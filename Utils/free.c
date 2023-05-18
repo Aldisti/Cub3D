@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 11:35:37 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/16 11:32:49 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/18 10:52:11 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,16 @@ void	ft_die(t_game *game)
 		ft_free((void **)&game->pars.ids[i++]);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
+	ft_free((void **) &game->mlx);
 	return ;
+}
+
+int	ft_close(void *param)
+{
+	t_game	*game;
+
+	game = (t_game *) param;
+	ft_die(game);
+	exit(0);
+	return (0);
 }
