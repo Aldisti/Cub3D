@@ -16,7 +16,6 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
 # endif
-
 # define WIDTH 1000
 # define HEIGHT 700
 
