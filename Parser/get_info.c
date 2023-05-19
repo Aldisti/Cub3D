@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 10:23:53 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/19 14:53:58 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/19 17:18:37 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ int	ft_get_color(t_game *game, const char type, const char *rgb)
 	char	**tmp;
 	int		i;
 
+	if (!rgb || !rgb[0])
+		return (0);
 	tmp = ft_split(rgb, ',');
 	i = 0;
 	while (tmp[i])
