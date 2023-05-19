@@ -89,6 +89,5 @@ int	ft_parser(t_game *game)
 		return (ft_error(INV_COL, 1));
 	if (ft_check_info(game))
 		return (1);
-	ft_get_data(game);
 	return (0);
 }
