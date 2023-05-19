@@ -23,6 +23,7 @@ int	ft_game(void *param)
 		ft_rotate(game, game->rotate, M_PI / 180.0f);
 	if (game->move_x || game->move_y || game->rotate)
 		ft_draw(game);
+
 	return (0);
 }
 
