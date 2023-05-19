@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 16:20:49 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/16 11:08:59 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/18 14:30:43 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	ft_check_info(t_game *game)
 	if (game->pos.x == -1 || game->pos.y == -1
 		|| (!game->dir.x && !game->pos.y))
 		return (ft_error(PL_MISS, 6));
+	if (!game->dr.img)
+		return (ft_error(DR_MISS, 7));
 	i = -1;
 	while (++i < 3)
 		if (game->f[i] > 255 || game->c[i] > 255)
@@ -131,6 +133,8 @@ int	ft_check_mat(t_pars *pars)
 			return (33);
 		if (j < pars->height - 1 && ft_check_se(pars->mat[j + 1], pars->mat[j]))
 			return (33);
+		if (j && j < pars->height - 1 && ft_check_door(pars, j))
+			return (34);
 	}
 	return (0);
 }
