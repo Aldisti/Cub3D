@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/19 16:39:38 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:40:50 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,10 +153,9 @@ void	ft_check_boundary(t_game *game);
 // images
 void	ft_draw(t_game *game);
 void	ft_set_img(t_game *game);
+void	ft_set_minimap(t_game *game);
 void	ft_put_line(t_game *g, int i);
 void	ft_set_draw_zone(t_game *game);
-// minimap
-void	ft_set_minimap(t_game *game);
 
 // Parser
 // parser

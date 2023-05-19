@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:34:02 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/19 16:33:58 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:40:35 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,33 @@ void	ft_put_line(t_game *g, int i)
 		{
 			dst = g->addr + (i * (g->bpp / 8) + n * g->ll);
 			*(unsigned int *)dst = create_trgb(1, g->f[0], g->f[1], g->f[2]);
+		}
+	}
+}
+
+void	ft_set_minimap(t_game *game)
+{
+	char	*dst;
+	int		i;
+	int		j;
+
+	i = -1;
+	while (++i < game->map.h)
+	{
+		j = -1;
+		while (++j < game->map.w)
+		{
+			dst = game->map.addr + (j * (game->map.bpp / 8) + i * game->map.ll);
+			*(unsigned int *)dst = MM_BG;
+			if (game->pars.mat[i / BLOCK][j / BLOCK] == 49)
+				*(unsigned int *)dst = MM_WL;
+			else if (game->pars.mat[i / BLOCK][j / BLOCK] == 'D')
+				*(unsigned int *)dst = MM_CD;
+			else if (game->pars.mat[i / BLOCK][j / BLOCK] == 'd')
+				*(unsigned int *)dst = MM_OD;
+			else if (powf((game->pos.x * 5 - j), 2)
+				+ powf((game->pos.y * 5 - i), 2) <= powf(2.5f, 2))
+				*(unsigned int *)dst = MM_PC;
 		}
 	}
 }
