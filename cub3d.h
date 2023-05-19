@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/18 18:13:09 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/19 11:58:41 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct s_img
 	int		w;
 	int		h;
 	int		bpp;
-	int		line_length;
+	int		ll;
 	int		endian;
 }	t_img;
 
@@ -75,6 +75,15 @@ typedef struct s_pars
 	struct s_game	*game;
 }	t_pars;
 
+typedef struct s_tex
+{
+	double	wallx;
+	double	texpos;
+	int		texx;
+	int		texy;
+	float	step;
+}	t_tex;
+
 typedef struct s_game
 {
 	void	*mlx;
@@ -87,8 +96,23 @@ typedef struct s_game
 	int		move_y;
 	int		rotate;
 	int		bpp;
-	int		line_length;
+	int		ll;
 	int		endian;
+	double	ddx;
+	double	ddy;
+	double	sdx;
+	double	sdy;
+	double	posx;
+	double	posy;
+	int		stepx;
+	int		stepy;
+	int		side;
+	int		hit;
+	double	pwd;
+	int		lh;
+	int		ds;
+	int		de;
+	t_img	cur;
 	t_img	no;
 	t_img	so;
 	t_img	we;
@@ -96,13 +120,15 @@ typedef struct s_game
 	t_img	dr;
 	int		f[3];
 	int		c[3];
-	t_vect		pos;
-	t_vect		dir;
-	t_vect		cam;
-	t_vect		ray;
-	t_pars		pars;
+	t_vect	pos;
+	t_vect	dir;
+	t_vect	cam;
+	t_vect	ray;
+	t_pars	pars;
+	t_tex	tex;
 }	t_game;
 
+int		ft_game(void *param);
 // Game
 // key_hook
 void	ft_zoom(t_game *game);
@@ -113,8 +139,15 @@ int		key_down(int keycode, void *param);
 int		ft_mouse(int x, int y, void *param);
 void	ft_rotate(t_game *game, int type, double rad);
 // movement
+void	ft_dda(t_game *g);
 void	ft_move(t_game *game);
+void	ft_prepare_dda(t_game *game);
 void	ft_check_boundary(t_game *game);
+// images
+void	ft_draw(t_game *game);
+void	ft_set_img(t_game *game);
+void	ft_put_line(t_game *g, int i);
+void	ft_set_draw_zone(t_game *game);
 
 // Parser
 // parser
@@ -170,6 +203,7 @@ char	**ft_split(char const *s, char c);
 void	*ft_calloc(size_t num, size_t dim);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 // mlx_wrap
+int		create_trgb(int t, int r, int g, int b);
 void	*ft_xpm(void *mlx, char *str, int *w, int *h);
 
 #endif

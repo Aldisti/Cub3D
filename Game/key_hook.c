@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:49:28 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/18 17:55:56 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/19 12:16:29 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	ft_zoom(t_game *game)
 {
-	// bisogna ridisegnare la mappa
 	game->cam.x /= 8;
 	game->cam.y /= 8;
 	game->z = 16;
+	ft_draw(game);
 	return ;
 }
 
@@ -39,6 +39,7 @@ void	ft_update_wall(t_game *game)
 		game->pars.mat[(int) game->pos.y][(int) game->pos.x - 1] = 'd';
 	else if (game->pars.mat[(int) game->pos.y][(int) game->pos.x - 1] == 'd')
 		game->pars.mat[(int) game->pos.y][(int) game->pos.x - 1] = 'D';
+	ft_draw(game);
 	return ;
 }
 
@@ -81,8 +82,8 @@ int	key_up(int keycode, void *param)
 		game->rotate = 0;
 	else if (keycode == 'z')
 	{
-		game->cam.x *=8;
-		game->cam.y *=8;
+		game->cam.x *= 8;
+		game->cam.y *= 8;
 		game->z = 2;
 	}
 	return (0);

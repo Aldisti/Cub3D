@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:56:03 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/18 18:08:24 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/19 12:15:06 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ type [1] [-1]
 */
 void	ft_rotate(t_game *game, int type, double rad)
 {
-	// bisogna ridisegnare la mappa
 	double	dir_x;
 	double	dir_y;
 	double	cam_x;
@@ -46,5 +45,6 @@ int	ft_mouse(int x, int y, void *param)
 	else if (x < game->x)
 		ft_rotate(game, -1, 2 * M_PI / (double) WIDTH);
 	game->x = x;
+	ft_draw(game);
 	return (0);
 }

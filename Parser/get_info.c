@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 10:23:53 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/18 14:35:40 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/19 11:31:55 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,17 @@ void	ft_get_pos(t_game *game, int y)
 void	ft_get_data(t_game *game)
 {	
 	game->no.addr = mlx_get_data_addr(game->no.img, &game->no.bpp,
-			&game->no.line_length, &game->no.endian);
+			&game->no.ll, &game->no.endian);
 	game->so.addr = mlx_get_data_addr(game->so.img, &game->so.bpp,
-			&game->so.line_length, &game->so.endian);
+			&game->so.ll, &game->so.endian);
 	game->ea.addr = mlx_get_data_addr(game->ea.img, &game->ea.bpp,
-			&game->ea.line_length, &game->ea.endian);
+			&game->ea.ll, &game->ea.endian);
 	game->we.addr = mlx_get_data_addr(game->we.img, &game->we.bpp,
-			&game->we.line_length, &game->we.endian);
+			&game->we.ll, &game->we.endian);
 	game->dr.img = ft_xpm(game->mlx, DR_CLS, &game->dr.w, &game->dr.h);
 	if (game->dr.img)
 		game->dr.addr = mlx_get_data_addr(game->dr.img, &game->dr.bpp,
-				&game->dr.line_length, &game->dr.endian);
+				&game->dr.ll, &game->dr.endian);
 	return ;
 }
 

@@ -1,7 +1,7 @@
 
 NO ./images/north.xpm
 SO ./images/hitler.xpm
-WE ./images/window.xpm
+WE ./images/south.xpm
 EA ./images/east.xpm
 
 F 0,120,0
