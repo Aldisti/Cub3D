@@ -6,11 +6,12 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 10:23:53 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/18 12:12:35 by gpanico          ###   ########.fr       */
+/*   Updated: 2023/05/19 11:31:55 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
 /*
 NORD
 x: 0 y: -1
@@ -36,26 +37,31 @@ void	ft_get_pos(t_game *game, int y)
 		return ;
 	game->pos.x = (float)i + 0.5f;
 	game->pos.y = (float)y + 0.5f;
-	if (game->pars.mat[y][i] == 'N')
-	{
-		game->dir.y = -1;
+	if (game->pars.mat[y][i] == 'N' && --game->dir.y)
 		game->cam.x = 0.66;
-	}
-	else if (game->pars.mat[y][i] == 'S')
-	{
-		game->dir.y = 1;
+	else if (game->pars.mat[y][i] == 'S' && ++game->dir.y)
 		game->cam.x = -0.66;
-	}
-	else if (game->pars.mat[y][i] == 'E')
-	{
-		game->dir.x = 1;
+	else if (game->pars.mat[y][i] == 'E' && ++game->dir.x)
 		game->cam.y = 0.66;
-	}
-	else if (game->pars.mat[y][i] == 'W')
-	{
-		game->dir.x = -1;
+	else if (game->pars.mat[y][i] == 'W' && --game->dir.x)
 		game->cam.y = -0.66;
-	}
+	return ;
+}
+
+void	ft_get_data(t_game *game)
+{	
+	game->no.addr = mlx_get_data_addr(game->no.img, &game->no.bpp,
+			&game->no.ll, &game->no.endian);
+	game->so.addr = mlx_get_data_addr(game->so.img, &game->so.bpp,
+			&game->so.ll, &game->so.endian);
+	game->ea.addr = mlx_get_data_addr(game->ea.img, &game->ea.bpp,
+			&game->ea.ll, &game->ea.endian);
+	game->we.addr = mlx_get_data_addr(game->we.img, &game->we.bpp,
+			&game->we.ll, &game->we.endian);
+	game->dr.img = ft_xpm(game->mlx, DR_CLS, &game->dr.w, &game->dr.h);
+	if (game->dr.img)
+		game->dr.addr = mlx_get_data_addr(game->dr.img, &game->dr.bpp,
+				&game->dr.ll, &game->dr.endian);
 	return ;
 }
 
@@ -115,5 +121,29 @@ int	ft_get_info(t_game *g, t_pars *pars)
 			return (ft_free_mat((void ***)&tmp) + 1);
 		ft_free_mat((void ***)&tmp);
 	}
+	ft_get_data(pars->game);
 	return (0);
+}
+
+int	ft_check_door(t_pars *pars, int j)
+{
+	char	tmp[5];
+	int		i;
+
+	i = 0;
+	while (pars->mat[j][i] && !ft_in(pars->mat[j][i], "Dd"))
+		i++;
+	if (!pars->mat[j][i])
+		return (0);
+	tmp[0] = pars->mat[j][i - 1];
+	tmp[1] = pars->mat[j][i + 1];
+	tmp[2] = pars->mat[j - 1][i];
+	tmp[2] = pars->mat[j + 1][i];
+	tmp[4] = 0;
+	if (ft_count(49, tmp) != 2)
+		return (1);
+	if ((ft_in(tmp[0], "1") && ft_in(tmp[1], "1"))
+		|| (ft_in(tmp[2], "1") && ft_in(tmp[3], "1")))
+		return (0);
+	return (1);
 }
