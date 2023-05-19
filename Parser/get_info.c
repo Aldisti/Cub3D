@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 10:23:53 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/19 11:31:55 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/19 14:53:58 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,19 @@ void	ft_get_pos(t_game *game, int y)
 }
 
 void	ft_get_data(t_game *game)
-{	
-	game->no.addr = mlx_get_data_addr(game->no.img, &game->no.bpp,
-			&game->no.ll, &game->no.endian);
-	game->so.addr = mlx_get_data_addr(game->so.img, &game->so.bpp,
-			&game->so.ll, &game->so.endian);
-	game->ea.addr = mlx_get_data_addr(game->ea.img, &game->ea.bpp,
-			&game->ea.ll, &game->ea.endian);
-	game->we.addr = mlx_get_data_addr(game->we.img, &game->we.bpp,
-			&game->we.ll, &game->we.endian);
+{
+	if (game->no.img)
+		game->no.addr = mlx_get_data_addr(game->no.img, &game->no.bpp,
+				&game->no.ll, &game->no.endian);
+	if (game->so.img)
+		game->so.addr = mlx_get_data_addr(game->so.img, &game->so.bpp,
+				&game->so.ll, &game->so.endian);
+	if (game->we.img)
+		game->we.addr = mlx_get_data_addr(game->we.img, &game->we.bpp,
+				&game->we.ll, &game->we.endian);
+	if (game->ea.img)
+		game->ea.addr = mlx_get_data_addr(game->ea.img, &game->ea.bpp,
+				&game->ea.ll, &game->ea.endian);
 	game->dr.img = ft_xpm(game->mlx, DR_CLS, &game->dr.w, &game->dr.h);
 	if (game->dr.img)
 		game->dr.addr = mlx_get_data_addr(game->dr.img, &game->dr.bpp,
@@ -128,9 +132,9 @@ int	ft_check_door(t_pars *pars, int j)
 	tmp[0] = pars->mat[j][i - 1];
 	tmp[1] = pars->mat[j][i + 1];
 	tmp[2] = pars->mat[j - 1][i];
-	tmp[2] = pars->mat[j + 1][i];
+	tmp[3] = pars->mat[j + 1][i];
 	tmp[4] = 0;
-	if (ft_count(49, tmp) != 2)
+	if (ft_count(49, tmp) < 2)
 		return (1);
 	if ((ft_in(tmp[0], "1") && ft_in(tmp[1], "1"))
 		|| (ft_in(tmp[2], "1") && ft_in(tmp[3], "1")))

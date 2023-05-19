@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:34:02 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/19 12:23:59 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:33:58 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ft_draw(t_game *game)
 	game->addr = mlx_get_data_addr(game->img, &game->bpp,
 			&game->ll, &game->endian);
 	i = -1;
+	ft_set_minimap(game);
 	while (++i < WIDTH)
 	{
 		game->ray.x = game->dir.x + game->cam.x * (2 * i / (double) WIDTH - 1);
@@ -31,6 +32,7 @@ void	ft_draw(t_game *game)
 		ft_put_line(game, i);
 	}
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
+	mlx_put_image_to_window(game->mlx, game->win, game->map.img, 0, 0);
 	mlx_destroy_image(game->mlx, game->img);
 	return ;
 }

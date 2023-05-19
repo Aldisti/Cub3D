@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/19 11:58:41 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/19 15:15:37 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 # define WIDTH 1000
 # define HEIGHT 700
+# define BLOCK 5
 
 # define SYMBOLS " 10NEWSDd"
 # define WALLS "1D"
@@ -90,6 +91,7 @@ typedef struct s_game
 	void	*win;
 	void	*img;
 	void	*addr;
+	t_img	map;
 	int		x;
 	int		z;
 	int		move_x;
@@ -148,6 +150,8 @@ void	ft_draw(t_game *game);
 void	ft_set_img(t_game *game);
 void	ft_put_line(t_game *g, int i);
 void	ft_set_draw_zone(t_game *game);
+// minimap
+void	ft_set_minimap(t_game *game);
 
 // Parser
 // parser

@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 11:56:51 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/18 14:17:34 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:34:04 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,10 @@ int	ft_parser(t_game *game)
 		return (ft_error(INV_COL, 1));
 	if (ft_check_info(game))
 		return (1);
+	game->map.w = (game->pars.width - 1) * BLOCK;
+	game->map.h = game->pars.height * BLOCK;
+	game->map.img = mlx_new_image(game->mlx, game->map.w, game->map.h);
+	game->map.addr = mlx_get_data_addr(game->map.img, &game->map.bpp,
+			&game->map.ll, &game->map.endian);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 10:14:19 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/18 18:16:22 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/19 14:51:11 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	ft_init_pars(t_game *game)
 	game->so.img = NULL;
 	game->we.img = NULL;
 	game->ea.img = NULL;
+	game->dr.img = NULL;
 	game->no.w = 0;
 	game->no.h = 0;
 	game->so.w = 0;

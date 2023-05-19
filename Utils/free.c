@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 11:35:37 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/18 10:52:11 by gpanico          ###   ########.fr       */
+/*   Updated: 2023/05/19 14:50:06 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,11 @@ void	ft_die(t_game *game)
 		mlx_destroy_image(game->mlx, game->we.img);
 	if (game->ea.img)
 		mlx_destroy_image(game->mlx, game->ea.img);
+	if (game->dr.img)
+		mlx_destroy_image(game->mlx, game->dr.img);
 	if (game->pars.line)
 		ft_free((void **)&game->pars.line);
-	if (game->pars.mat)
-		ft_free_mat((void ***)&game->pars.mat);
+	ft_free_mat((void ***)&game->pars.mat);
 	i = 0;
 	while (i < 6)
 		ft_free((void **)&game->pars.ids[i++]);

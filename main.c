@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:53:33 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/19 12:20:10 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:35:08 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	ft_game(void *param)
 		ft_rotate(game, game->rotate, M_PI / 180.0f);
 	if (game->move_x || game->move_y || game->rotate)
 		ft_draw(game);
-
 	return (0);
 }
 
@@ -48,9 +47,7 @@ int	main(int ac, char **av)
 	mlx_hook(game.win, 3, 1L << 1, key_up, &game);
 	mlx_hook(game.win, 17, 0, ft_close, &game);
 	mlx_hook(game.win, 6, 1L << 6, ft_mouse, &game);
-	//mlx_key_hook(game.win, key_hook, &game);
 	mlx_loop_hook(game.mlx, ft_game, &game);
 	mlx_loop(game.mlx);
-	//ft_die(&game);
 	return (0);
 }
