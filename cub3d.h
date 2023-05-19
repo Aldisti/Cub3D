@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/19 11:58:41 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/19 14:34:58 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ void	ft_zoom(t_game *game);
 void	ft_update_wall(t_game *game);
 int		key_up(int keycode, void *param);
 int		key_down(int keycode, void *param);
+int		focus(void *param);
 // mouse_hook
 int		ft_mouse(int x, int y, void *param);
 void	ft_rotate(t_game *game, int type, double rad);

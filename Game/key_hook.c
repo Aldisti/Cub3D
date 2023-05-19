@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:49:28 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/19 12:16:29 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/19 14:37:06 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,23 @@ int	key_up(int keycode, void *param)
 	else if (keycode == 65361 || keycode == 65363)
 		game->rotate = 0;
 	else if (keycode == 'z')
+	{
+		game->cam.x *= 8;
+		game->cam.y *= 8;
+		game->z = 2;
+	}
+	return (0);
+}
+
+int	focus(void *param)
+{
+	t_game	*game;
+
+	game = (t_game *) param;
+	game->move_y = 0;
+	game->move_x = 0;
+	game->rotate = 0;
+	if (game->z == 16)
 	{
 		game->cam.x *= 8;
 		game->cam.y *= 8;
