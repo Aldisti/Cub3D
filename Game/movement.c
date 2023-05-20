@@ -6,11 +6,18 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 18:09:47 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/19 12:15:36 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/20 16:35:01 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void	ft_add_point(t_game *game, double x, double y)
+{
+	*(unsigned int *)((char *)(game->map.addr + (((int)x * 5)
+					* (game->map.bpp / 8) + ((int)y * 5) * game->map.ll)))
+		= MM_BG;
+}
 
 void	ft_dda(t_game *g)
 {
@@ -19,6 +26,8 @@ void	ft_dda(t_game *g)
 	g->posy = g->pos.y;
 	while (!g->hit)
 	{
+		if (g->posx != g->pos.x || g->posy != g->pos.y)
+			ft_add_point(g, g->posx, g->posy);
 		if (g->sdx < g->sdy)
 		{
 			g->sdx += g->ddx;

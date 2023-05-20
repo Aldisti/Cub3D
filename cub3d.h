@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/19 16:40:50 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/20 15:59:13 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # define RED "\033[31m"
 # define BLKRED "\033[5;31m"
 # define RESET "\033[0;0;0m"
-# define MM_BG 0x2b2c2c
+# define MM_BG 0x90ee90
 # define MM_PC 0xff0000
 # define MM_WL 0xffffff
 # define MM_CD 0x00ffff

@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:34:02 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/19 16:40:35 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/20 15:55:43 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void	ft_set_minimap(t_game *game)
 		while (++j < game->map.w)
 		{
 			dst = game->map.addr + (j * (game->map.bpp / 8) + i * game->map.ll);
-			*(unsigned int *)dst = MM_BG;
+			*(unsigned int *)dst = 0x000000;
 			if (game->pars.mat[i / BLOCK][j / BLOCK] == 49)
 				*(unsigned int *)dst = MM_WL;
 			else if (game->pars.mat[i / BLOCK][j / BLOCK] == 'D')

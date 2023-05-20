@@ -14,10 +14,10 @@ mkdir out >/dev/null 2>&1
 if [ -f "cub3d" ]; then
 	printf "$PURPLE cub3d already exists$RESET\n"
 else
-	printf "$PURPLE compiling cub3d...$RESET\n"
+	printf "$PURPLE compiling cub3d...$RESET"
 	make > /dev/null 2>&1
 	make clean > /dev/null 2>&1
-	printf "$PURPLE cub3d compiled...$RESET\n"
+	printf "\033[1K\r$PURPLE cub3d compiled...$RESET\n"
 fi
 
 ko=0
