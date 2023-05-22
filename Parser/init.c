@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 10:14:19 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/18 18:16:22 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/22 11:00:06 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	ft_init(t_game *game)
 	game->win = NULL;
 	game->img = NULL;
 	game->addr = NULL;
+	game->ot = 0;
 	game->move_x = 0;
 	game->move_y = 0;
 	game->rotate = 0;

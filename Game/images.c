@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:34:02 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/19 12:23:59 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/22 12:21:06 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 void	ft_draw(t_game *game)
 {
 	int	i;
+	char	*fps;
 
+	game->ot = ft_gettime(0);
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	game->addr = mlx_get_data_addr(game->img, &game->bpp,
 			&game->ll, &game->endian);
@@ -31,8 +33,12 @@ void	ft_draw(t_game *game)
 		ft_put_line(game, i);
 	}
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
+	game->ot = ft_gettime(game->ot);
+	game->fps = 1000 / game->ot;
+	fps = ft_itoa(game->fps);
+	mlx_string_put(game->mlx, game->win, WIDTH - 30, 15, 0xFFFFFF, fps);
 	mlx_destroy_image(game->mlx, game->img);
-	return ;
+	ft_free((void **) &fps);
 }
 
 void	ft_set_draw_zone(t_game *game)

@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:49:28 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/19 14:37:06 by gpanico          ###   ########.fr       */
+/*   Updated: 2023/05/22 14:14:37 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 void	ft_zoom(t_game *game)
 {
-	game->cam.x /= 8;
-	game->cam.y /= 8;
-	game->z = 16;
-	ft_draw(game);
+	if (game->z == 2)
+	{
+		game->cam.x /= 8;
+		game->cam.y /= 8;
+		game->z = 16;
+		ft_draw(game);
+	}
 	return ;
 }
 
@@ -80,7 +83,7 @@ int	key_up(int keycode, void *param)
 		game->move_x = 0;
 	else if (keycode == 65361 || keycode == 65363)
 		game->rotate = 0;
-	else if (keycode == 'z')
+	else if (keycode == 'z' && game->z == 16)
 	{
 		game->cam.x *= 8;
 		game->cam.y *= 8;

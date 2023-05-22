@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/19 14:34:58 by gpanico          ###   ########.fr       */
+/*   Updated: 2023/05/22 13:43:14 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 #  define BUFFER_SIZE 1
 # endif
 
-# define WIDTH 1000
-# define HEIGHT 700
+# define WIDTH 1080
+# define HEIGHT 720
 
 # define SYMBOLS " 10NEWSDd"
 # define WALLS "1D"
@@ -44,6 +44,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <sys/time.h>
 # include "mlx/mlx.h"
 
 typedef struct s_vect
@@ -90,6 +91,8 @@ typedef struct s_game
 	void	*win;
 	void	*img;
 	void	*addr;
+	long	ot;
+	int		fps;
 	int		x;
 	int		z;
 	int		move_x;
@@ -206,5 +209,9 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 // mlx_wrap
 int		create_trgb(int t, int r, int g, int b);
 void	*ft_xpm(void *mlx, char *str, int *w, int *h);
+// time
+long	ft_gettime(long time);
+// itoa
+char	*ft_itoa(int n);
 
 #endif

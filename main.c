@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:53:33 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/19 14:36:50 by gpanico          ###   ########.fr       */
+/*   Updated: 2023/05/22 13:44:10 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int	ft_game(void *param)
 {
-	t_game	*game;
+	t_game		*game;
 
 	game = (t_game *)param;
 	if (game->move_x || game->move_y)
 		ft_move(game);
 	if (game->rotate)
-		ft_rotate(game, game->rotate, M_PI / 180.0f);
+		ft_rotate(game, game->rotate, M_PI / 2.0f / game->fps);
 	if (game->move_x || game->move_y || game->rotate)
 		ft_draw(game);
 	return (0);
