@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:34:02 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/20 15:55:43 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/22 22:14:42 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	ft_draw(t_game *game)
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	game->addr = mlx_get_data_addr(game->img, &game->bpp,
 			&game->ll, &game->endian);
-	i = -1;
 	ft_set_minimap(game);
+	i = -1;
 	while (++i < WIDTH)
 	{
 		game->ray.x = game->dir.x + game->cam.x * (2 * i / (double) WIDTH - 1);
@@ -121,7 +121,7 @@ void	ft_set_minimap(t_game *game)
 		while (++j < game->map.w)
 		{
 			dst = game->map.addr + (j * (game->map.bpp / 8) + i * game->map.ll);
-			*(unsigned int *)dst = 0x000000;
+			*(unsigned int *)dst = 0x2c2c2c;
 			if (game->pars.mat[i / BLOCK][j / BLOCK] == 49)
 				*(unsigned int *)dst = MM_WL;
 			else if (game->pars.mat[i / BLOCK][j / BLOCK] == 'D')
