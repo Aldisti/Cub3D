@@ -12,6 +12,15 @@
 
 #include "../cub3d.h"
 
+void	ft_normalize(t_game *game)
+{
+	double	mod;
+
+	mod = sqrtf(powf(game->ray.x, 2) + powf(game->ray.y, 2));
+	game->ray.x /= mod;
+	game->ray.y /= mod;
+}
+
 void	ft_draw(t_game *game)
 {
 	int	i;
@@ -26,6 +35,7 @@ void	ft_draw(t_game *game)
 	{
 		game->ray.x = game->dir.x + game->cam.x * (2 * i / (double) WIDTH - 1);
 		game->ray.y = game->dir.y + game->cam.y * (2 * i / (double) WIDTH - 1);
+		//ft_normalize(game);
 		ft_prepare_dda(game);
 		ft_dda(game);
 		ft_set_draw_zone(game);

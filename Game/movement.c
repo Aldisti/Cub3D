@@ -26,10 +26,14 @@ int	ft_next_step(t_game game)
 		game.posy += game.stepy;
 		game.side = 1;
 	}
-	if (!game.side && game.posy)
+	if (!game.side)
 	{
-		printf("y: %f\n", game.posy);
-		return (1);
+		if (((game.ray.y / game.ray.x) * (game.pos.x - ((int) game.posx + (game.posx <= game.pos.x)))
+				- (game.pos.y - (int)game.posy - 1)) * (((game.pos.y > (int)game.posy + 1) * 2) - 1)
+				< 0.5f * (((game.pos.y > (int)game.posy + 1) * 2) - 1))
+		//if ((game.ray.y / game.ray.x) * (game.pos.x - ((int) game.posx + (game.posx <= game.pos.x)))
+		//		- (game.pos.y - (int)game.posy - 1) > 0.5f)
+			return (1);
 	}
 	return (0);
 }
@@ -54,8 +58,12 @@ void	ft_dda(t_game *g)
 			g->side = 1;
 		}
 		if (ft_in(g->pars.mat[(int) g->posy][(int) g->posx], "D"))
+		{
 			if(ft_next_step(*g))
 				continue ;
+			else
+				g->sdy += g->ddy / 2;
+		}
 		if (ft_in(g->pars.mat[(int) g->posy][(int) g->posx], WALLS))
 			g->hit = 1 + (g->pars.mat[(int) g->posy][(int) g->posx] == 'D');
 	}

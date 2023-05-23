@@ -18,7 +18,7 @@ void	ft_zoom(t_game *game)
 	{
 		game->cam.x /= 8;
 		game->cam.y /= 8;
-		game->z = 16;
+		game->z = 8;
 		ft_draw(game);
 	}
 	return ;
@@ -87,7 +87,7 @@ int	key_up(int keycode, void *param)
 	{
 		game->cam.x *= 8;
 		game->cam.y *= 8;
-		game->z = 2;
+		game->z = 1;
 	}
 	return (0);
 }
@@ -104,7 +104,7 @@ int	focus(void *param)
 	{
 		game->cam.x *= 8;
 		game->cam.y *= 8;
-		game->z = 2;
+		game->z = 1;
 	}
 	return (0);
 }

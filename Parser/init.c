@@ -50,7 +50,7 @@ void	ft_init(t_game *game)
 	game->move_x = 0;
 	game->move_y = 0;
 	game->rotate = 0;
-	game->z = 2;
+	game->z = 1;
 	game->x = WIDTH / 2;
 	game->pos.x = -1;
 	game->pos.y = -1;
