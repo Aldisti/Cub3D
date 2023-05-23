@@ -17,8 +17,8 @@
 #  define BUFFER_SIZE 1
 # endif
 
-# define WIDTH 1080
-# define HEIGHT 720
+# define WIDTH 800
+# define HEIGHT 600
 
 # define SYMBOLS " 10NEWSDd"
 # define WALLS "1D"

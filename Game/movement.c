@@ -12,6 +12,28 @@
 
 #include "../cub3d.h"
 
+int	ft_next_step(t_game game)
+{
+	if (game.sdx < game.sdy)
+	{
+		game.sdx += game.ddx;
+		game.posx += game.stepx;
+		game.side = 0;
+	}
+	else
+	{
+		game.sdy += game.ddy;
+		game.posy += game.stepy;
+		game.side = 1;
+	}
+	if (!game.side && game.posy)
+	{
+		printf("y: %f\n", game.posy);
+		return (1);
+	}
+	return (0);
+}
+
 void	ft_dda(t_game *g)
 {
 	g->hit = 0;
@@ -31,6 +53,9 @@ void	ft_dda(t_game *g)
 			g->posy += g->stepy;
 			g->side = 1;
 		}
+		if (ft_in(g->pars.mat[(int) g->posy][(int) g->posx], "D"))
+			if(ft_next_step(*g))
+				continue ;
 		if (ft_in(g->pars.mat[(int) g->posy][(int) g->posx], WALLS))
 			g->hit = 1 + (g->pars.mat[(int) g->posy][(int) g->posx] == 'D');
 	}
