@@ -20,28 +20,44 @@ else
 	printf "\033[1K\r$PURPLE cub3d compiled...$RESET\n"
 fi
 
-ko=0
-i=0
-while [ $i -lt 43 ]; do
-	printf "\033[1K\r$PURPLE Doing test $CYAN$i$RESET"
+test_wrong_map()
+{
+	printf "\033[1K\r$PURPLE Testing wrong maps, n: $CYAN$1$RESET"
 	i=$((i + 1))
-	./cub3d "maps/wrong$i.cub" >$FILE 2>&1
+	./cub3d $2 >$FILE 2>&1 &
 	sleep .5
 	if ! [ "$(pgrep cub3d)" = "" ]; then
 		kill -kill $(pgrep cub3d)
+		mv $FILE "out/$1.out"
 		ko=$((ko + 1))
-		mv $FILE "out/$i.out"
 	elif [ $(grep "error" $FILE | wc -l) -eq 0 ]; then
+		mv $FILE "out/$1.out"
 		ko=$((ko + 1))
-		mv $FILE "out/$i.out"
 	fi
-	rm -f $FILE
+	rm -f $FILE >/dev/null 2>&1
+	return 0
+}
+
+ko=0
+i=1
+while [ $i -lt 43 ]; do
+	test_wrong_map $i "maps/wrong$i.cub"
 done
-printf "\033[1K\r"
+# OTHER TESTS
+test_wrong_map $i "maps/mapcub"
+test_wrong_map $i "maps/mapub"
+test_wrong_map $i "maps/mapb"
+test_wrong_map $i "maps/map."
+test_wrong_map $i "plokmijnuhbygvtfcrdxeszwaq"
+
+
+$((i - 1))
+printf "\033[1K\r$PURPLE $i tests executed\n"
 
 if [ $ko -eq 0 ]; then
 	rm -rf out >/dev/null 2>&1
+else
+	rm -rf $FILE >/dev/null 2>&1
 fi
 
-ok=$((i - ko))
-printf "$CYAN ok: $GREEN$ok$CYAN ko: $RED$ko$RESET\n"
+printf "$CYAN ok: $GREEN$((i - ko))$CYAN ko: $RED$ko$RESET\n"
