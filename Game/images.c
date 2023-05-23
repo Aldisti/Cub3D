@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:34:02 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/22 22:14:42 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/23 18:16:07 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,28 +108,28 @@ void	ft_put_line(t_game *g, int i)
 	}
 }
 
-void	ft_set_minimap(t_game *game)
+void	ft_set_minimap(t_game *g)
 {
 	char	*dst;
 	int		i;
 	int		j;
 
 	i = -1;
-	while (++i < game->map.h)
+	while (++i < g->map.h)
 	{
 		j = -1;
-		while (++j < game->map.w)
+		while (++j < g->map.w)
 		{
-			dst = game->map.addr + (j * (game->map.bpp / 8) + i * game->map.ll);
-			*(unsigned int *)dst = 0x2c2c2c;
-			if (game->pars.mat[i / BLOCK][j / BLOCK] == 49)
+			dst = g->map.addr + (j * (g->map.bpp / 8) + i * g->map.ll);
+			*(unsigned int *)dst = 0x2C2C2C;
+			if (g->pars.mat[i / BLOCK][j / BLOCK] == 49)
 				*(unsigned int *)dst = MM_WL;
-			else if (game->pars.mat[i / BLOCK][j / BLOCK] == 'D')
+			else if (g->pars.mat[i / BLOCK][j / BLOCK] == 'D')
 				*(unsigned int *)dst = MM_CD;
-			else if (game->pars.mat[i / BLOCK][j / BLOCK] == 'd')
+			else if (g->pars.mat[i / BLOCK][j / BLOCK] == 'd')
 				*(unsigned int *)dst = MM_OD;
-			else if (powf((game->pos.x * 5 - j), 2)
-				+ powf((game->pos.y * 5 - i), 2) <= powf(2.5f, 2))
+			else if (powf((g->pos.x * BLOCK - j), 2)
+				+ powf((g->pos.y * BLOCK - i), 2) <= 6.25f)
 				*(unsigned int *)dst = MM_PC;
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/20 15:59:13 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/23 18:08:40 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ typedef struct s_tex
 	double	texpos;
 	int		texx;
 	int		texy;
-	float	step;
+	double	step;
 }	t_tex;
 
 typedef struct s_game
@@ -153,7 +153,7 @@ void	ft_check_boundary(t_game *game);
 // images
 void	ft_draw(t_game *game);
 void	ft_set_img(t_game *game);
-void	ft_set_minimap(t_game *game);
+void	ft_set_minimap(t_game *g);
 void	ft_put_line(t_game *g, int i);
 void	ft_set_draw_zone(t_game *game);
 

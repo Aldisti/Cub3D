@@ -6,62 +6,38 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 18:09:47 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/22 22:20:03 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/23 18:05:28 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	ft_draw_point(t_game *game, double x, double y)
-{
-	if ((int)x >= game->map.w || (int)y >= game->map.h)
-		return ;
-	// *(unsigned int *)((char *)(game->map.addr + (((int)x)
-	// 				* (game->map.bpp / 8) + ((int)y) * game->map.ll)))
-	// 	= MM_BG;
-	int	i;
-	int	j;
-
-	j = -1;
-	while (++j < BLOCK)
-	{
-		i = -1;
-		while (++i < BLOCK)
-		{
-			if ((int)x + i >= game->map.w - 5 || (int)y + j >= game->map.h - 5)
-				continue ;
-			*(unsigned int *)((char *)(game->map.addr + (((int)x + i)
-					* (game->map.bpp / 8) + ((int)y + j) * game->map.ll)))
-				= MM_BG;
-		}
-	}
-}
-
+/*
+s_c.x -> cos of alpha
+s_c.y -> sin of alpha
+*/
 void	ft_draw_line(t_game *g)
 {
-	double	i;
-	double	d[2];
 	double	length;
 	double	alpha;
-	t_vect	n_p;
+	double	d[2];
+	double	i;
+	t_vect	s_c;
 
 	d[0] = (g->posx - g->pos.x) * BLOCK;
 	d[1] = (g->posy - g->pos.y) * BLOCK;
 	length = sqrt(d[0] * d[0] + d[1] * d[1]);
 	alpha = atan(d[1] / d[0]);
-	if (d[0] < 0)
-		alpha += M_PI;
+	alpha += M_PI * (d[0] < 0);
+	s_c.x = cos(alpha);
+	s_c.y = sin(alpha);
 	i = -1;
 	while (++i < length)
-	{
-		n_p.x = g->pos.x * BLOCK + i * cos(alpha);
-		n_p.y = g->pos.y * BLOCK + i * sin(alpha);
-		// ft_draw_point(g, n_p.x, n_p.y);
-		*(unsigned int *)((char *)(g->map.addr + (((int)n_p.x)
-					* (g->map.bpp / 8) + ((int)n_p.y) * g->map.ll)))
-			= MM_BG;
-		i++;
-	}
+		*(unsigned int *)((char *)(g->map.addr
+					+ (((int)(g->pos.x * BLOCK + i * s_c.x))
+						* (g->map.bpp / 8) + ((int)(g->pos.y * BLOCK + i
+								* s_c.y)) * g->map.ll))) = MM_BG;
+	return ;
 }
 
 void	ft_dda(t_game *g)
@@ -71,8 +47,6 @@ void	ft_dda(t_game *g)
 	g->posy = g->pos.y;
 	while (!g->hit)
 	{
-		// if (g->posx != g->pos.x || g->posy != g->pos.y)
-		// 	ft_draw_point(g, g->posx, g->posy);
 		if (g->sdx < g->sdy)
 		{
 			g->sdx += g->ddx;
