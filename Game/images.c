@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:34:02 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/23 18:16:07 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/24 11:02:48 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,11 +122,11 @@ void	ft_set_minimap(t_game *g)
 		{
 			dst = g->map.addr + (j * (g->map.bpp / 8) + i * g->map.ll);
 			*(unsigned int *)dst = 0x2C2C2C;
-			if (g->pars.mat[i / BLOCK][j / BLOCK] == 49)
+			if (g->pars.mat[(int)(i / BLOCK)][(int)(j / BLOCK)] == 49)
 				*(unsigned int *)dst = MM_WL;
-			else if (g->pars.mat[i / BLOCK][j / BLOCK] == 'D')
+			else if (g->pars.mat[(int)(i / BLOCK)][(int)(j / BLOCK)] == 'D')
 				*(unsigned int *)dst = MM_CD;
-			else if (g->pars.mat[i / BLOCK][j / BLOCK] == 'd')
+			else if (g->pars.mat[(int)(i / BLOCK)][(int)(j / BLOCK)] == 'd')
 				*(unsigned int *)dst = MM_OD;
 			else if (powf((g->pos.x * BLOCK - j), 2)
 				+ powf((g->pos.y * BLOCK - i), 2) <= 6.25f)

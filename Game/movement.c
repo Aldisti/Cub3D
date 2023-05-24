@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 18:09:47 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/23 18:05:28 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/24 11:13:22 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,16 @@ s_c.y -> sin of alpha
 void	ft_draw_line(t_game *g)
 {
 	double	length;
-	double	alpha;
 	double	d[2];
 	double	i;
 	t_vect	s_c;
 
-	d[0] = (g->posx - g->pos.x) * BLOCK;
-	d[1] = (g->posy - g->pos.y) * BLOCK;
+	g->pwd = (g->sdx - g->ddx) * (!g->side) + (g->sdy - g->ddy) * (g->side);
+	d[0] = ((g->ray.x * g->pwd + g->pos.x) - g->pos.x) * BLOCK;
+	d[1] = ((g->ray.y * g->pwd + g->pos.y) - g->pos.y) * BLOCK;
 	length = sqrt(d[0] * d[0] + d[1] * d[1]);
-	alpha = atan(d[1] / d[0]);
-	alpha += M_PI * (d[0] < 0);
-	s_c.x = cos(alpha);
-	s_c.y = sin(alpha);
+	s_c.x = cos(atan(d[1] / d[0]) + M_PI * (d[0] < 0));
+	s_c.y = sin(atan(d[1] / d[0]) + M_PI * (d[0] < 0));
 	i = -1;
 	while (++i < length)
 		*(unsigned int *)((char *)(g->map.addr
