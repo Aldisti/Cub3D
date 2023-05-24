@@ -84,7 +84,10 @@ int	ft_parser(t_game *game)
 	if (ft_getmat(&game->pars))
 		return (ft_error(INV_MAP, 1));
 	if (ft_check_mat(&game->pars))
+	{
+		printf("%d\n", ft_check_mat(&game->pars));
 		return (ft_error(INV_MAP, 1));
+	}
 	if (ft_get_info(game, &game->pars))
 		return (ft_error(INV_COL, 1));
 	if (ft_check_info(game))

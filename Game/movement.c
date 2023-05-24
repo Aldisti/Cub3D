@@ -12,7 +12,7 @@
 
 #include "../cub3d.h"
 
-int	ft_next_step(t_game game)
+int	ft_next_step_y(t_game game)
 {
 	if (game.sdx < game.sdy)
 	{
@@ -38,6 +38,30 @@ int	ft_next_step(t_game game)
 	return (0);
 }
 
+int	ft_next_step_x(t_game game)
+{
+	if (game.sdx < game.sdy)
+	{
+		game.sdx += game.ddx;
+		game.posx += game.stepx;
+		game.side = 0;
+	}
+	else
+	{
+		game.sdy += game.ddy;
+		game.posy += game.stepy;
+		game.side = 1;
+	}
+	if (game.side)
+	{
+		if (((game.ray.x / game.ray.y) * (game.pos.y - ((int) game.posy + (game.posy <= game.pos.y)))
+				- (game.pos.x - (int)game.posx - 1)) * (((game.pos.x > (int)game.posx + 1) * 2) - 1)
+				< 0.5f * (((game.pos.x > (int)game.posx + 1) * 2) - 1))
+			return (1);
+	}
+	return (0);
+}
+
 void	ft_dda(t_game *g)
 {
 	g->hit = 0;
@@ -57,12 +81,19 @@ void	ft_dda(t_game *g)
 			g->posy += g->stepy;
 			g->side = 1;
 		}
-		if (ft_in(g->pars.mat[(int) g->posy][(int) g->posx], "D"))
+		if (g->side && ft_in(g->pars.mat[(int) g->posy][(int) g->posx], "D"))
 		{
-			if(ft_next_step(*g))
+			if(ft_next_step_y(*g))
 				continue ;
 			else
 				g->sdy += g->ddy / 2;
+		}
+		else if (ft_in(g->pars.mat[(int) g->posy][(int) g->posx], "D"))
+		{
+			if(ft_next_step_x(*g))
+				continue ;
+			else
+				g->sdx += g->ddx / 2;
 		}
 		if (ft_in(g->pars.mat[(int) g->posy][(int) g->posx], WALLS))
 			g->hit = 1 + (g->pars.mat[(int) g->posy][(int) g->posx] == 'D');
