@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/26 11:51:28 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/26 13:51:41 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <sys/time.h>
 # include "mlx/mlx.h"
 
 typedef struct s_vect
@@ -106,6 +107,8 @@ typedef struct s_game
 	void	*img;
 	void	*addr;
 	t_img	map;
+	long	ot;
+	int		fps;
 	int		x;
 	int		z;
 	int		move_x;
@@ -151,6 +154,7 @@ void	ft_zoom(t_game *game);
 void	ft_update_wall(t_game *game);
 int		key_up(int keycode, void *param);
 int		key_down(int keycode, void *param);
+int		focus(void *param);
 // mouse_hook
 int		ft_mouse(int x, int y, void *param);
 void	ft_rotate(t_game *game, int type, double rad);
@@ -223,5 +227,9 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 // mlx_wrap
 int		create_trgb(int t, int r, int g, int b);
 void	*ft_xpm(void *mlx, char *str, int *w, int *h);
+// time
+long	ft_gettime(long time);
+// itoa
+char	*ft_itoa(int n);
 
 #endif

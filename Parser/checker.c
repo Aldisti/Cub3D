@@ -133,8 +133,8 @@ int	ft_check_mat(t_pars *pars)
 			return (33);
 		if (j < pars->height - 1 && ft_check_se(pars->mat[j + 1], pars->mat[j]))
 			return (33);
-		if (j && j < pars->height - 1 && ft_check_door(pars, j))
-			return (34);
+		//if (j && j < pars->height - 1 && ft_check_door(pars, j))
+		//	return (34);
 	}
 	return (0);
 }

@@ -6,16 +6,27 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:34:02 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/26 11:22:36 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/26 13:52:26 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
+void	ft_normalize(t_game *game)
+{
+	double	mod;
+
+	mod = sqrtf(powf(game->ray.x, 2) + powf(game->ray.y, 2));
+	game->ray.x /= mod;
+	game->ray.y /= mod;
+}
+
 void	ft_draw(t_game *game)
 {
 	int	i;
+	char	*fps;
 
+	game->ot = ft_gettime(0);
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	game->addr = mlx_get_data_addr(game->img, &game->bpp,
 			&game->ll, &game->endian);
@@ -25,6 +36,7 @@ void	ft_draw(t_game *game)
 	{
 		game->ray.x = game->dir.x + game->cam.x * (2 * i / (double) WIDTH - 1);
 		game->ray.y = game->dir.y + game->cam.y * (2 * i / (double) WIDTH - 1);
+		//ft_normalize(game);
 		ft_prepare_dda(game);
 		ft_dda(game);
 		ft_set_draw_zone(game);
@@ -33,8 +45,12 @@ void	ft_draw(t_game *game)
 	}
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 	mlx_put_image_to_window(game->mlx, game->win, game->map.img, 0, 0);
+	game->ot = ft_gettime(game->ot);
+	game->fps = 1000 / game->ot;
+	fps = ft_itoa(game->fps);
+	mlx_string_put(game->mlx, game->win, WIDTH - 30, 15, 0xFFFFFF, fps);
 	mlx_destroy_image(game->mlx, game->img);
-	return ;
+	ft_free((void **) &fps);
 }
 
 void	ft_set_draw_zone(t_game *game)

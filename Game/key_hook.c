@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:49:28 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/26 11:19:34 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/26 13:52:56 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,58 @@
 
 void	ft_zoom(t_game *game)
 {
-	game->cam.x /= 8;
-	game->cam.y /= 8;
-	game->z = 8;
-	ft_draw(game);
+	if (game->z == 1)
+	{
+		game->cam.x /= 8;
+		game->cam.y /= 8;
+		game->z = 8;
+		ft_draw(game);
+	}
 	return ;
+}
+
+void	ft_update_door(t_game *game, int x, int y)
+{
+	long	t;
+	long	t_0;
+
+	t = ft_get_time(0);
+	t_0 = game->doors[y][x].time;
+	if (game->doors[y][x].type == 'C')
+	{
+		game->doors[y][x].type = 'o';
+		game->doors[y][x].time = t;
+	}
+	else if (game->doors[y][x].type == 'c')
+	{
+		game->doors[y][x].type = 'o';
+		game->doors[y][x].time = 2 * t - t_0 - 1000;
+	}
+	else if (game->doors[y][x].type == 'O')
+	{
+		game->doors[y][x].type = 'c';
+		game->doors[y][x].time = t;
+	}
+	else if (game->doors[y][x].type == 'o')
+	{
+		game->doors[y][x].type = 'c';
+		game->doors[y][x].time = 2 * t - t_0 - 1000;
+	}
 }
 
 void	ft_update_wall(t_game *game)
 {
+	
+	if (game->pars.mat[(int) game->pos.y + 1][(int) game->pos.x] == 'D')
+		ft_update_door(game, (int) game->pos.y + 1, (int) game->pos.x);
+	if (game->pars.mat[(int) game->pos.y - 1][(int) game->pos.x] == 'D')
+		ft_update_door(game, (int) game->pos.y - 1, (int) game->pos.x);
+	if (game->pars.mat[(int) game->pos.y][(int) game->pos.x + 1] == 'D')
+		ft_update_door(game, (int) game->pos.y, (int) game->pos.x + 1);
+	if (game->pars.mat[(int) game->pos.y][(int) game->pos.x - 1] == 'D')
+		ft_update_door(game, (int) game->pos.y, (int) game->pos.x - 1);
+	/*
+	//------------------------
 	if (game->pars.mat[(int) game->pos.y + 1][(int) game->pos.x] == 'D')
 		game->pars.mat[(int) game->pos.y + 1][(int) game->pos.x] = 'd';
 	else if (game->pars.mat[(int) game->pos.y + 1][(int) game->pos.x] == 'd')
@@ -40,6 +83,7 @@ void	ft_update_wall(t_game *game)
 	else if (game->pars.mat[(int) game->pos.y][(int) game->pos.x - 1] == 'd')
 		game->pars.mat[(int) game->pos.y][(int) game->pos.x - 1] = 'D';
 	ft_draw(game);
+	*/
 	return ;
 }
 
@@ -80,7 +124,24 @@ int	key_up(int keycode, void *param)
 		game->move_x = 0;
 	else if (keycode == 65361 || keycode == 65363)
 		game->rotate = 0;
-	else if (keycode == 'z')
+	else if (keycode == 'z' && game->z == 8)
+	{
+		game->cam.x *= 8;
+		game->cam.y *= 8;
+		game->z = 1;
+	}
+	return (0);
+}
+
+int	focus(void *param)
+{
+	t_game	*game;
+
+	game = (t_game *) param;
+	game->move_y = 0;
+	game->move_x = 0;
+	game->rotate = 0;
+	if (game->z == 8)
 	{
 		game->cam.x *= 8;
 		game->cam.y *= 8;

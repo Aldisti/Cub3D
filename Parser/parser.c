@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 11:56:51 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/26 11:57:06 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/26 13:51:06 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,10 @@ int	ft_parser(t_game *game)
 	if (ft_getmat(&game->pars))
 		return (ft_error(INV_MAP, 1));
 	if (ft_check_mat(&game->pars))
+	{
+		printf("%d\n", ft_check_mat(&game->pars));
 		return (ft_error(INV_MAP, 1));
+	}
 	if (ft_get_info(game, &game->pars))
 		return (ft_error(INV_COL, 1));
 	if (ft_check_info(game))
