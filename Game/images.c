@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:34:02 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/24 11:02:48 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/26 11:22:36 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,6 @@ void	ft_draw(t_game *game)
 
 void	ft_set_draw_zone(t_game *game)
 {
-	if (!game->side)
-		game->pwd = game->sdx - game->ddx;
-	else
-		game->pwd = game->sdy - game->ddy;
 	game->lh = (int)(game->z * HEIGHT / game->pwd);
 	game->ds = HEIGHT / 2 - game->lh / 2;
 	if (game->ds < 0)
@@ -121,7 +117,7 @@ void	ft_set_minimap(t_game *g)
 		while (++j < g->map.w)
 		{
 			dst = g->map.addr + (j * (g->map.bpp / 8) + i * g->map.ll);
-			*(unsigned int *)dst = 0x2C2C2C;
+			*(unsigned int *)dst = MM_BG;
 			if (g->pars.mat[(int)(i / BLOCK)][(int)(j / BLOCK)] == 49)
 				*(unsigned int *)dst = MM_WL;
 			else if (g->pars.mat[(int)(i / BLOCK)][(int)(j / BLOCK)] == 'D')

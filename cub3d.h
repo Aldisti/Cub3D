@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/24 10:52:24 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/26 11:51:28 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define HEIGHT 700
 # define BLOCK 5
 
-# define SYMBOLS " 10NEWSDd"
+# define SYMBOLS " 10NEWSD"
 # define WALLS "1D"
 
 # define DR_CLS "images/door.xpm"
@@ -35,15 +35,17 @@
 # define PL_MISS "player position missig"
 # define INV_COL "invalid colors"
 # define INV_MAP "invalid map"
+# define MAC_ERR "malloc error"
 // colors
 # define RED "\033[31m"
 # define BLKRED "\033[5;31m"
 # define RESET "\033[0;0;0m"
-# define MM_BG 0x90ee90
-# define MM_PC 0xff0000
+# define MM_BG 0x2c2c2c
+# define MM_PC 0x00ff00
 # define MM_WL 0xffffff
-# define MM_CD 0x00ffff
-# define MM_OD 0xffff00
+# define MM_CD 0xff0000
+# define MM_OD 0x00ffff
+# define MM_CV 0xf9f876
 
 # include <math.h>
 # include <fcntl.h>
@@ -57,6 +59,12 @@ typedef struct s_vect
 	double	x;
 	double	y;
 }	t_vect;
+
+typedef struct s_door
+{
+	char	type;
+	long	time;
+}	t_door;
 
 typedef struct s_img
 {
@@ -92,6 +100,7 @@ typedef struct s_tex
 
 typedef struct s_game
 {
+	t_door	**doors;
 	void	*mlx;
 	void	*win;
 	void	*img;
@@ -159,6 +168,7 @@ void	ft_set_draw_zone(t_game *game);
 
 // Parser
 // parser
+int		ft_set_doors(t_game *g);
 int		ft_parser(t_game *game);
 int		ft_getdim(t_pars *pars);
 int		ft_getmat(t_pars *pars);

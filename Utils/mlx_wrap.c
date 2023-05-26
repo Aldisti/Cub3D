@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 09:56:10 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/19 11:33:05 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/26 11:57:50 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	*ft_xpm(void *mlx, char *str, int *w, int *h)
 {
-	return (mlx_xpm_file_to_image(mlx, str, w, h));	
+	return (mlx_xpm_file_to_image(mlx, str, w, h));
 }
 
 int	create_trgb(int t, int r, int g, int b)

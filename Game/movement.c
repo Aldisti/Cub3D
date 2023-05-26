@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 18:09:47 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/24 11:13:22 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/26 11:21:15 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	ft_draw_line(t_game *g)
 	t_vect	s_c;
 
 	g->pwd = (g->sdx - g->ddx) * (!g->side) + (g->sdy - g->ddy) * (g->side);
-	d[0] = ((g->ray.x * g->pwd + g->pos.x) - g->pos.x) * BLOCK;
-	d[1] = ((g->ray.y * g->pwd + g->pos.y) - g->pos.y) * BLOCK;
+	d[0] = (g->ray.x * g->pwd) * BLOCK;
+	d[1] = (g->ray.y * g->pwd) * BLOCK;
 	length = sqrt(d[0] * d[0] + d[1] * d[1]);
 	s_c.x = cos(atan(d[1] / d[0]) + M_PI * (d[0] < 0));
 	s_c.y = sin(atan(d[1] / d[0]) + M_PI * (d[0] < 0));
@@ -34,7 +34,7 @@ void	ft_draw_line(t_game *g)
 		*(unsigned int *)((char *)(g->map.addr
 					+ (((int)(g->pos.x * BLOCK + i * s_c.x))
 						* (g->map.bpp / 8) + ((int)(g->pos.y * BLOCK + i
-								* s_c.y)) * g->map.ll))) = MM_BG;
+								* s_c.y)) * g->map.ll))) = MM_CV;
 	return ;
 }
 

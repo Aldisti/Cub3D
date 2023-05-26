@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:49:28 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/19 12:16:29 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/26 11:19:34 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_zoom(t_game *game)
 {
 	game->cam.x /= 8;
 	game->cam.y /= 8;
-	game->z = 16;
+	game->z = 8;
 	ft_draw(game);
 	return ;
 }
@@ -84,7 +84,7 @@ int	key_up(int keycode, void *param)
 	{
 		game->cam.x *= 8;
 		game->cam.y *= 8;
-		game->z = 2;
+		game->z = 1;
 	}
 	return (0);
 }

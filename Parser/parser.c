@@ -6,11 +6,35 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 11:56:51 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/19 16:34:04 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/26 11:57:06 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+int	ft_set_doors(t_game *g)
+{
+	int	i;
+	int	j;
+
+	g->doors = (t_door **)ft_calloc(g->pars.height + 1, sizeof(t_door *));
+	if (!g->doors)
+		return (1);
+	i = -1;
+	while (++i < g->pars.height)
+	{
+		g->doors[i] = (t_door *)ft_calloc(g->pars.width + 1, sizeof(t_door));
+		if (!g->doors[i])
+			return (1);
+		j = -1;
+		while (++j < g->pars.width)
+		{
+			g->doors[i][j].type = 'D' * (g->pars.mat[i][j] == 'D');
+			g->doors[i][j].time = -1;
+		}
+	}
+	return (0);
+}
 
 int	ft_getdim(t_pars *pars)
 {
@@ -28,12 +52,12 @@ int	ft_getdim(t_pars *pars)
 		if (pars->line[0] == 10 && ++pars->offset)
 			continue ;
 		if (i == 6 && (int)ft_strlen(pars->line) > pars->width)
-			pars->width = ft_strlen(pars->line);
+			pars->width = ft_strlen(pars->line)
+				- (pars->line[ft_strlen(pars->line)] == 10);
 		if ((i == 6 && ++pars->height) || !(++pars->offset))
 			continue ;
-		pars->ids[i++] = ft_strdup(pars->line);
-		if (!pars->ids[i - 1])
-			exit(10);
+		pars->ids[i++] = pars->line;
+		pars->line = NULL;
 		pars->ids[i - 1][ft_strlen(pars->ids[i - 1]) - 1]
 			*= !(pars->ids[i - 1][ft_strlen(pars->ids[i - 1]) - 1] == 10);
 	}
@@ -46,7 +70,7 @@ int	ft_getmat(t_pars *pars)
 	int	fd;
 	int	i;
 
-	pars->mat = (char **)malloc((pars->height + 1) * sizeof(char *));
+	pars->mat = (char **)ft_calloc((pars->height + 1), sizeof(char *));
 	if (!pars->mat)
 		return (1);
 	i = 0;
@@ -61,9 +85,8 @@ int	ft_getmat(t_pars *pars)
 			continue ;
 		if (pars->line[ft_strlen(pars->line) - 1] == 10)
 			pars->line[ft_strlen(pars->line) - 1] = 0;
-		pars->mat[i++] = ft_strdup(pars->line);
-		if (!pars->mat[i - 1])
-			exit(13);
+		pars->mat[i++] = pars->line;
+		pars->line = NULL;
 	}
 	pars->mat[i] = 0;
 	close(fd);
@@ -89,6 +112,8 @@ int	ft_parser(t_game *game)
 		return (ft_error(INV_COL, 1));
 	if (ft_check_info(game))
 		return (1);
+	if (ft_set_doors(game))
+		return (ft_error(MAC_ERR, 1));
 	game->map.w = (game->pars.width - 1) * BLOCK;
 	game->map.h = game->pars.height * BLOCK;
 	game->map.img = mlx_new_image(game->mlx, game->map.w, game->map.h);
