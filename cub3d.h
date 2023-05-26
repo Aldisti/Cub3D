@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/26 13:51:41 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/26 15:59:08 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 #  define BUFFER_SIZE 1
 # endif
 
-# define WIDTH 1000
-# define HEIGHT 700
+# define WIDTH 1080
+# define HEIGHT 720
 # define BLOCK 5
 
 # define SYMBOLS " 10NEWSD"
@@ -169,6 +169,8 @@ void	ft_set_img(t_game *game);
 void	ft_set_minimap(t_game *g);
 void	ft_put_line(t_game *g, int i);
 void	ft_set_draw_zone(t_game *game);
+// door
+void	ft_check_time(t_game *g);
 
 // Parser
 // parser

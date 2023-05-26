@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:53:33 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/26 13:54:09 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/26 15:24:49 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	ft_game(void *param)
 	t_game		*game;
 
 	game = (t_game *)param;
+	ft_check_time(game);
 	if (game->move_x || game->move_y)
 		ft_move(game);
 	if (game->rotate)

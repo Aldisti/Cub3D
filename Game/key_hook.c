@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:49:28 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/26 13:52:56 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/26 15:23:41 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ void	ft_zoom(t_game *game)
 	return ;
 }
 
-void	ft_update_door(t_game *game, int x, int y)
+void	ft_update_door(t_game *game, int y, int x)
 {
 	long	t;
 	long	t_0;
 
-	t = ft_get_time(0);
+	t = ft_gettime(0);
 	t_0 = game->doors[y][x].time;
 	if (game->doors[y][x].type == 'C')
 	{
@@ -43,6 +43,7 @@ void	ft_update_door(t_game *game, int x, int y)
 	}
 	else if (game->doors[y][x].type == 'O')
 	{
+		game->pars.mat[y][x] = 'D';
 		game->doors[y][x].type = 'c';
 		game->doors[y][x].time = t;
 	}
@@ -53,16 +54,28 @@ void	ft_update_door(t_game *game, int x, int y)
 	}
 }
 
+/*
+for (int i = 0; i < game->pars.height; i++)
+	{
+		for (int j = 0; j < game->pars.width; j++)
+			if (game->doors[i][j].type)
+				write(1, &game->doors[i][j].type, 1);
+			else
+				write(1, ".", 1);
+		write(1, "\n", 1);
+	}
+	write(1, "\n", 1);
+*/
 void	ft_update_wall(t_game *game)
 {
 	
-	if (game->pars.mat[(int) game->pos.y + 1][(int) game->pos.x] == 'D')
+	if (ft_in(game->pars.mat[(int) game->pos.y + 1][(int) game->pos.x], "Dd"))
 		ft_update_door(game, (int) game->pos.y + 1, (int) game->pos.x);
-	if (game->pars.mat[(int) game->pos.y - 1][(int) game->pos.x] == 'D')
+	if (ft_in(game->pars.mat[(int) game->pos.y - 1][(int) game->pos.x], "Dd"))
 		ft_update_door(game, (int) game->pos.y - 1, (int) game->pos.x);
-	if (game->pars.mat[(int) game->pos.y][(int) game->pos.x + 1] == 'D')
+	if (ft_in(game->pars.mat[(int) game->pos.y][(int) game->pos.x + 1], "Dd"))
 		ft_update_door(game, (int) game->pos.y, (int) game->pos.x + 1);
-	if (game->pars.mat[(int) game->pos.y][(int) game->pos.x - 1] == 'D')
+	if (ft_in(game->pars.mat[(int) game->pos.y][(int) game->pos.x - 1], "Dd"))
 		ft_update_door(game, (int) game->pos.y, (int) game->pos.x - 1);
 	/*
 	//------------------------

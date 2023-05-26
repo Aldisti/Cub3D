@@ -1,8 +1,8 @@
 
-NO ./images/north.xpm
-SO ./images/hitler.xpm
+NO ./images/south.xpm
+SO ./images/south.xpm
 WE ./images/south.xpm
-EA ./images/east.xpm
+EA ./images/south.xpm
 
 F 0,120,0
 C 0,0,120

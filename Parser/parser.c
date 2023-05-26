@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 11:56:51 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/26 13:51:06 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/26 14:04:27 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_set_doors(t_game *g)
 		j = -1;
 		while (++j < g->pars.width)
 		{
-			g->doors[i][j].type = 'D' * (g->pars.mat[i][j] == 'D');
+			g->doors[i][j].type = 'C' * (g->pars.mat[i][j] == 'D');
 			g->doors[i][j].time = -1;
 		}
 	}
