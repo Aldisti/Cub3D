@@ -14,6 +14,11 @@
 
 int	ft_next_step_y(t_game game)
 {
+	double	x;
+	double	y;
+
+	if (game.doors[(int) game.posy][(int) game.posx].type == 'O')
+		return (1);
 	if (game.sdx < game.sdy)
 	{
 		game.sdx += game.ddx;
@@ -28,18 +33,46 @@ int	ft_next_step_y(t_game game)
 	}
 	if (!game.side)
 	{
-		if (((game.ray.y / game.ray.x) * (game.pos.x - ((int) game.posx + (game.posx <= game.pos.x)))
-				- (game.pos.y - (int)game.posy - 1)) * (((game.pos.y > (int)game.posy + 1) * 2) - 1)
-				< 0.5f * (((game.pos.y > (int)game.posy + 1) * 2) - 1))
+		game.pwd = game.sdx - game.ddx;
+		y = game.ray.y * game.pwd + game.pos.y;
+		y = (1 - (y - (int) y)) * (((game.pos.y > (int)game.posy + 1) * 2) - 1);
+		if (y < 0.5f * (((game.pos.y > (int)game.posy + 1) * 2) - 1))
 		//if ((game.ray.y / game.ray.x) * (game.pos.x - ((int) game.posx + (game.posx <= game.pos.x)))
 		//		- (game.pos.y - (int)game.posy - 1) > 0.5f)
 			return (1);
+		else
+		{
+			game.pwd = game.sdy - game.ddy / 2;
+			x = game.ray.x * game.pwd + game.pos.x;
+			x = (1 - (x - (int) x));
+			if (game.doors[(int) game.posy][(int) (game.posx - game.stepx)].type == 'o'
+					&& x < ft_get_time(game.doors[(int) game.posy][(int) (game.posx - game.stepx)].time) / (double) 1000)
+				return (1);
+			if (game.doors[(int) game.posy][(int) (game.posx - game.stepx)].type == 'c'
+					&& x > ft_get_time(game.doors[(int) game.posy][(int) (game.posx - game.stepx)].time) / (double) 1000)
+				return (1);
+		}
 	}
+	else
+	{
+		game.pwd = game.sdy - game.ddy * (double) 3 / 2;
+		x = game.ray.x * game.pwd + game.pos.x;
+		x = (1 - (x - (int) x));
+		if (game.doors[(int) game.posy - game.stepy][(int) (game.posx)].type == 'o'
+				&& x < ft_get_time(game.doors[(int) game.posy][(int) (game.posx - game.stepx)].time) / (double) 1000)
+			return (1);
+		if (game.doors[(int) game.posy - game.stepy][(int) (game.posx)].type == 'c'
+				&& x > ft_get_time(game.doors[(int) game.posy][(int) (game.posx - game.stepx)].time) / (double) 1000)
+			return (1);
+	}	
 	return (0);
 }
 
 int	ft_next_step_x(t_game game)
 {
+	double	x;
+	double	y;
+
 	if (game.sdx < game.sdy)
 	{
 		game.sdx += game.ddx;
@@ -54,9 +87,34 @@ int	ft_next_step_x(t_game game)
 	}
 	if (game.side)
 	{
-		if (((game.ray.x / game.ray.y) * (game.pos.y - ((int) game.posy + (game.posy <= game.pos.y)))
-				- (game.pos.x - (int)game.posx - 1)) * (((game.pos.x > (int)game.posx + 1) * 2) - 1)
-				< 0.5f * (((game.pos.x > (int)game.posx + 1) * 2) - 1))
+		game.pwd = game.sdy - game.ddy;
+		x = game.ray.x * game.pwd + game.pos.x;
+		x = (1 - (x - (int) x)) * (((game.pos.x > (int)game.posx + 1) * 2) - 1);
+		if (x < 0.5f * (((game.pos.x > (int)game.posx + 1) * 2) - 1))
+			return (1);
+		else
+		{
+			game.pwd = game.sdx - game.ddx / 2;
+			y = game.ray.y * game.pwd + game.pos.y;
+			y = (1 - (y - (int) y));
+			if (game.doors[(int) game.posy - game.stepy][(int) (game.posx)].type == 'o'
+					&& y < ft_get_time(game.doors[(int) game.posy][(int) (game.posx - game.stepx)].time) / (double) 1000)
+				return (1);
+			if (game.doors[(int) game.posy - game.stepy][(int) (game.posx)].type == 'c'
+					&& y > ft_get_time(game.doors[(int) game.posy][(int) (game.posx - game.stepx)].time) / (double) 1000)
+				return (1);
+		}
+	}
+	else
+	{
+		game.pwd = game.sdx - game.ddx * (double) 3 / 2;
+		y = game.ray.y * game.pwd + game.pos.y;
+		y = (1 - (y - (int) y));
+		if (game.doors[(int) game.posy][(int) (game.posx - game.stepx)].type == 'o'
+				&& y < ft_get_time(game.doors[(int) game.posy][(int) (game.posx - game.stepx)].time) / (double) 1000)
+			return (1);
+		if (game.doors[(int) game.posy][(int) (game.posx - game.stepx)].type == 'c'
+				&& y > ft_get_time(game.doors[(int) game.posy][(int) (game.posx - game.stepx)].time) / (double) 1000)
 			return (1);
 	}
 	return (0);
