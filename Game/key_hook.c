@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:49:28 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/26 15:23:41 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/27 11:48:30 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,36 +24,6 @@ void	ft_zoom(t_game *game)
 	return ;
 }
 
-void	ft_update_door(t_game *game, int y, int x)
-{
-	long	t;
-	long	t_0;
-
-	t = ft_gettime(0);
-	t_0 = game->doors[y][x].time;
-	if (game->doors[y][x].type == 'C')
-	{
-		game->doors[y][x].type = 'o';
-		game->doors[y][x].time = t;
-	}
-	else if (game->doors[y][x].type == 'c')
-	{
-		game->doors[y][x].type = 'o';
-		game->doors[y][x].time = 2 * t - t_0 - 1000;
-	}
-	else if (game->doors[y][x].type == 'O')
-	{
-		game->pars.mat[y][x] = 'D';
-		game->doors[y][x].type = 'c';
-		game->doors[y][x].time = t;
-	}
-	else if (game->doors[y][x].type == 'o')
-	{
-		game->doors[y][x].type = 'c';
-		game->doors[y][x].time = 2 * t - t_0 - 1000;
-	}
-}
-
 /*
 for (int i = 0; i < game->pars.height; i++)
 	{
@@ -68,7 +38,6 @@ for (int i = 0; i < game->pars.height; i++)
 */
 void	ft_update_wall(t_game *game)
 {
-	
 	if (ft_in(game->pars.mat[(int) game->pos.y + 1][(int) game->pos.x], "Dd"))
 		ft_update_door(game, (int) game->pos.y + 1, (int) game->pos.x);
 	if (ft_in(game->pars.mat[(int) game->pos.y - 1][(int) game->pos.x], "Dd"))
@@ -77,26 +46,6 @@ void	ft_update_wall(t_game *game)
 		ft_update_door(game, (int) game->pos.y, (int) game->pos.x + 1);
 	if (ft_in(game->pars.mat[(int) game->pos.y][(int) game->pos.x - 1], "Dd"))
 		ft_update_door(game, (int) game->pos.y, (int) game->pos.x - 1);
-	/*
-	//------------------------
-	if (game->pars.mat[(int) game->pos.y + 1][(int) game->pos.x] == 'D')
-		game->pars.mat[(int) game->pos.y + 1][(int) game->pos.x] = 'd';
-	else if (game->pars.mat[(int) game->pos.y + 1][(int) game->pos.x] == 'd')
-		game->pars.mat[(int) game->pos.y + 1][(int) game->pos.x] = 'D';
-	if (game->pars.mat[(int) game->pos.y - 1][(int) game->pos.x] == 'D')
-		game->pars.mat[(int) game->pos.y - 1][(int) game->pos.x] = 'd';
-	else if (game->pars.mat[(int) game->pos.y - 1][(int) game->pos.x] == 'd')
-		game->pars.mat[(int) game->pos.y - 1][(int) game->pos.x] = 'D';
-	if (game->pars.mat[(int) game->pos.y][(int) game->pos.x + 1] == 'D')
-		game->pars.mat[(int) game->pos.y][(int) game->pos.x + 1] = 'd';
-	else if (game->pars.mat[(int) game->pos.y][(int) game->pos.x + 1] == 'd')
-		game->pars.mat[(int) game->pos.y][(int) game->pos.x + 1] = 'D';
-	if (game->pars.mat[(int) game->pos.y][(int) game->pos.x - 1] == 'D')
-		game->pars.mat[(int) game->pos.y][(int) game->pos.x - 1] = 'd';
-	else if (game->pars.mat[(int) game->pos.y][(int) game->pos.x - 1] == 'd')
-		game->pars.mat[(int) game->pos.y][(int) game->pos.x - 1] = 'D';
-	ft_draw(game);
-	*/
 	return ;
 }
 

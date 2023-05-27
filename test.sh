@@ -50,8 +50,8 @@ test_wrong_map $i "maps/mapb"
 test_wrong_map $i "maps/map."
 test_wrong_map $i "plokmijnuhbygvtfcrdxeszwaq"
 
-
 $((i - 1))
+
 printf "\033[1K\r$PURPLE $i tests executed\n"
 
 if [ $ko -eq 0 ]; then

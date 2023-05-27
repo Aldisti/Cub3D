@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:34:02 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/26 15:55:59 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/27 11:45:38 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,10 @@ void	ft_normalize(t_game *game)
 
 void	ft_draw(t_game *game)
 {
-	int	i;
+	int		i;
 	char	*fps;
 
 	game->ot = ft_gettime(0);
-	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
-	game->addr = mlx_get_data_addr(game->img, &game->bpp,
-			&game->ll, &game->endian);
 	ft_set_minimap(game);
 	i = -1;
 	while (++i < WIDTH)
@@ -49,7 +46,6 @@ void	ft_draw(t_game *game)
 	game->fps = 1000 / game->ot;
 	fps = ft_itoa(game->fps);
 	mlx_string_put(game->mlx, game->win, WIDTH - 30, 15, 0xFFFFFF, fps);
-	mlx_destroy_image(game->mlx, game->img);
 	ft_free((void **) &fps);
 }
 
@@ -116,33 +112,6 @@ void	ft_put_line(t_game *g, int i)
 		{
 			dst = g->addr + (i * (g->bpp / 8) + n * g->ll);
 			*(unsigned int *)dst = create_trgb(1, g->f[0], g->f[1], g->f[2]);
-		}
-	}
-}
-
-void	ft_set_minimap(t_game *g)
-{
-	char	*dst;
-	int		i;
-	int		j;
-
-	i = -1;
-	while (++i < g->map.h)
-	{
-		j = -1;
-		while (++j < g->map.w)
-		{
-			dst = g->map.addr + (j * (g->map.bpp / 8) + i * g->map.ll);
-			*(unsigned int *)dst = MM_BG;
-			if (g->pars.mat[(int)(i / BLOCK)][(int)(j / BLOCK)] == 49)
-				*(unsigned int *)dst = MM_WL;
-			else if (g->pars.mat[(int)(i / BLOCK)][(int)(j / BLOCK)] == 'D')
-				*(unsigned int *)dst = MM_CD;
-			else if (g->pars.mat[(int)(i / BLOCK)][(int)(j / BLOCK)] == 'd')
-				*(unsigned int *)dst = MM_OD;
-			else if (powf((g->pos.x * BLOCK - j), 2)
-				+ powf((g->pos.y * BLOCK - i), 2) <= 6.25f)
-				*(unsigned int *)dst = MM_PC;
 		}
 	}
 }

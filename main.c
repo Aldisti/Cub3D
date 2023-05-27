@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:53:33 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/26 15:24:49 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/27 11:41:56 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	game.win = mlx_new_window(game.mlx, WIDTH, HEIGHT, "Cub3D");
+	game.img = mlx_new_image(game.mlx, WIDTH, HEIGHT);
+	game.addr = mlx_get_data_addr(game.img, &game.bpp,
+			&game.ll, &game.endian);
 	ft_draw(&game);
 	mlx_do_sync(game.mlx);
 	mlx_hook(game.win, 10, 1L << 21, focus, &game);

@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 11:35:37 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/26 12:00:57 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/27 12:02:37 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,10 @@ void	ft_die(t_game *game)
 {
 	int	i;
 
-	mlx_destroy_image(game->mlx, game->no.img);
-	mlx_destroy_image(game->mlx, game->so.img);
-	mlx_destroy_image(game->mlx, game->we.img);
-	mlx_destroy_image(game->mlx, game->ea.img);
-	mlx_destroy_image(game->mlx, game->dr.img);
 	ft_free((void **)&game->pars.line);
 	ft_free_mat((void ***)&game->pars.mat);
 	i = -1;
-	while (++i < game->pars.height)
+	while (game->doors && ++i < game->pars.height)
 		ft_free((void **)&game->doors[i]);
 	ft_free((void **)&game->doors);
 	i = 0;
@@ -71,8 +66,7 @@ void	ft_die(t_game *game)
 		ft_free((void **)&game->pars.ids[i++]);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
-	ft_free((void **) &game->mlx);
-	return ;
+	ft_free((void **)&game->mlx);
 }
 
 int	ft_close(void *param)
@@ -80,6 +74,18 @@ int	ft_close(void *param)
 	t_game	*game;
 
 	game = (t_game *) param;
+	if (game->no.img)
+		mlx_destroy_image(game->mlx, game->no.img);
+	if (game->so.img)
+		mlx_destroy_image(game->mlx, game->so.img);
+	if (game->we.img)
+		mlx_destroy_image(game->mlx, game->we.img);
+	if (game->ea.img)
+		mlx_destroy_image(game->mlx, game->ea.img);
+	if (game->dr.img)
+		mlx_destroy_image(game->mlx, game->dr.img);
+	if (game->img)
+		mlx_destroy_image(game->mlx, game->img);
 	ft_die(game);
 	exit(0);
 	return (0);
