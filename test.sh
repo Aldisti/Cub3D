@@ -30,7 +30,7 @@ test_wrong_map()
 		kill -kill $(pgrep cub3d)
 		mv $FILE "out/$1.out"
 		ko=$((ko + 1))
-	elif [ $(grep "error" $FILE | wc -l) -eq 0 ]; then
+	elif [ $(grep "Error" $FILE | wc -l) -eq 0 ]; then
 		mv $FILE "out/$1.out"
 		ko=$((ko + 1))
 	fi
@@ -50,7 +50,7 @@ test_wrong_map $i "maps/mapb"
 test_wrong_map $i "maps/map."
 test_wrong_map $i "plokmijnuhbygvtfcrdxeszwaq"
 
-$((i - 1))
+i=$((i - 1))
 
 printf "\033[1K\r$PURPLE $i tests executed\n"
 
