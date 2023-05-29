@@ -6,27 +6,13 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 09:59:55 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/27 11:37:05 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/29 12:18:20 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	ft_check_door_time(t_game *game, double n)
-{
-	long	time;
-
-	time = ft_gettime(game->doors[(int)game->posy][(int)game->posx].time);
-	if ((game->doors[(int)game->posy][(int) game->posx].type == 'o'
-		&& n < time / (double)1000))
-		return (1);
-	if ((game->doors[(int)game->posy][(int)game->posx].type == 'c'
-		&& n < 1 - time / (double)1000))
-		return (1);
-	return (0);
-}
-
-int	ft_step_y(t_game *game)
+int	ft_step_y(t_game *game, t_game *g)
 {
 	double	x;
 	double	y;
@@ -51,10 +37,10 @@ int	ft_step_y(t_game *game)
 		x = (1 - (x - (int) x));
 		game->posy = game->posy - game->stepy;
 	}
-	return (2 * !ft_check_door_time(game, x));
+	return (2 * !ft_check_door_time(game, g, x));
 }
 
-int	ft_step_x(t_game *game)
+int	ft_step_x(t_game *game, t_game *g)
 {
 	double	x;
 	double	y;
@@ -79,7 +65,7 @@ int	ft_step_x(t_game *game)
 		y = (1 - (y - (int) y));
 		game->posx = game->posx - game->stepx;
 	}
-	return (1 * !ft_check_door_time(game, y));
+	return (1 * !ft_check_door_time(game, g, y));
 }
 
 int	ft_next_step(t_game game, t_game *g)
@@ -100,10 +86,11 @@ int	ft_next_step(t_game game, t_game *g)
 	}
 	n = 0;
 	if (g->side)
-		n = ft_step_y(&game);
+		n = ft_step_y(&game, g);
 	else
-		n = ft_step_x(&game);
-	ft_reset_time(g, (int) game.posy, (int) game.posx);
+		n = ft_step_x(&game, g);
+	if (n)
+		ft_reset_time(g, (int) game.posy, (int) game.posx);
 	return (n);
 }
 
@@ -112,7 +99,10 @@ int	ft_dda2(t_game *g)
 	int	n;
 
 	if (!ft_in(g->pars.mat[(int) g->posy][(int) g->posx], "D"))
+	{
+		g->p = -1;
 		return (0);
+	}
 	if (g->doors[(int) g->posy][(int) g->posx].type == 'O')
 		return (1);
 	n = ft_next_step(*g, g);
@@ -123,4 +113,32 @@ int	ft_dda2(t_game *g)
 	else
 		return (1);
 	return (0);
+}
+
+void	ft_dda(t_game *g)
+{
+	g->hit = 0;
+	g->posx = g->pos.x;
+	g->posy = g->pos.y;
+	while (!g->hit)
+	{
+		if (g->sdx < g->sdy)
+		{
+			g->sdx += g->ddx;
+			g->posx += g->stepx;
+			g->side = 0;
+		}
+		else
+		{
+			g->sdy += g->ddy;
+			g->posy += g->stepy;
+			g->side = 1;
+		}
+		if (ft_dda2(g))
+			continue ;
+		if (ft_in(g->pars.mat[(int) g->posy][(int) g->posx], WALLS))
+			g->hit = 1 + (g->pars.mat[(int) g->posy][(int) g->posx] == 'D');
+	}
+	ft_draw_line(g);
+	return ;
 }

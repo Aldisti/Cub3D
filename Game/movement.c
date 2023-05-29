@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 18:09:47 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/27 11:38:51 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/29 12:18:02 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,34 +35,6 @@ void	ft_draw_line(t_game *g)
 					+ (((int)(g->pos.x * BLOCK + i * s_c.x))
 						* (g->map.bpp / 8) + ((int)(g->pos.y * BLOCK + i
 								* s_c.y)) * g->map.ll))) = MM_CV;
-	return ;
-}
-
-void	ft_dda(t_game *g)
-{
-	g->hit = 0;
-	g->posx = g->pos.x;
-	g->posy = g->pos.y;
-	while (!g->hit)
-	{
-		if (g->sdx < g->sdy)
-		{
-			g->sdx += g->ddx;
-			g->posx += g->stepx;
-			g->side = 0;
-		}
-		else
-		{
-			g->sdy += g->ddy;
-			g->posy += g->stepy;
-			g->side = 1;
-		}
-		if (ft_dda2(g))
-			continue ;
-		if (ft_in(g->pars.mat[(int) g->posy][(int) g->posx], WALLS))
-			g->hit = 1 + (g->pars.mat[(int) g->posy][(int) g->posx] == 'D');
-	}
-	ft_draw_line(g);
 	return ;
 }
 

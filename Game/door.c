@@ -6,11 +6,30 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:25:12 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/27 11:48:34 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/29 12:29:22 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+int	ft_check_door_time(t_game *game, t_game *g, double n)
+{
+	long	time;
+
+	time = ft_gettime(game->doors[(int)game->posy][(int)game->posx].time);
+	if (g->p == -1 && game->doors[(int)game->posy][(int)game->posx].type == 'o')
+		g->p = 1 - time / (double) 1000;
+	else if (g->p == -1
+		&& game->doors[(int)game->posy][(int)game->posx].type == 'c')
+		g->p = time / (double) 1000;
+	if ((game->doors[(int)game->posy][(int) game->posx].type == 'o'
+		&& n < time / (double)1000))
+		return (1);
+	if ((game->doors[(int)game->posy][(int)game->posx].type == 'c'
+		&& n < 1 - time / (double)1000))
+		return (1);
+	return (0);
+}
 
 void	ft_update_door(t_game *game, int y, int x)
 {

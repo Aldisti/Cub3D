@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/27 12:02:41 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/29 12:19:08 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ typedef struct s_tex
 
 typedef struct s_game
 {
+	double	p;
 	t_door	**doors;
 	void	*mlx;
 	void	*win;
@@ -159,7 +160,6 @@ int		focus(void *param);
 int		ft_mouse(int x, int y, void *param);
 void	ft_rotate(t_game *game, int type, double rad);
 // movement
-void	ft_dda(t_game *g);
 void	ft_move(t_game *game);
 void	ft_draw_line(t_game *g);
 void	ft_prepare_dda(t_game *game);
@@ -175,12 +175,13 @@ void	ft_check_time(t_game *g);
 void	ft_set_minimap(t_game *g);
 void	ft_reset_time(t_game *g, int i, int j);
 void	ft_update_door(t_game *game, int y, int x);
+int		ft_check_door_time(t_game *game, t_game *g, double n);
 // dda
+void	ft_dda(t_game *g);
 int		ft_dda2(t_game *g);
-int		ft_step_x(t_game *game);
-int		ft_step_y(t_game *game);
+int		ft_step_x(t_game *game, t_game *g);
+int		ft_step_y(t_game *game, t_game *g);
 int		ft_next_step(t_game game, t_game *g);
-int		ft_check_door_time(t_game *game, double n);
 
 // Parser
 // parser

@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 10:14:19 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/27 11:41:30 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/29 12:13:48 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	ft_init_pars(t_game *game)
 
 void	ft_init(t_game *game)
 {
+	game->p = -1;
 	game->doors = NULL;
 	game->mlx = NULL;
 	game->win = NULL;
