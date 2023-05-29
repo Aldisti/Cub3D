@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:53:33 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/19 12:20:10 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/27 11:41:56 by adi-stef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 int	ft_game(void *param)
 {
-	t_game	*game;
+	t_game		*game;
 
 	game = (t_game *)param;
+	ft_check_time(game);
 	if (game->move_x || game->move_y)
 		ft_move(game);
 	if (game->rotate)
-		ft_rotate(game, game->rotate, M_PI / 180.0f);
-	if (game->move_x || game->move_y || game->rotate)
-		ft_draw(game);
-
+		ft_rotate(game, game->rotate, M_PI / 2.0f / game->fps);
+	// if (game->move_x || game->move_y || game->rotate)
+	ft_draw(game);
 	return (0);
 }
 
@@ -32,7 +32,7 @@ int	main(int ac, char **av)
 	t_game	game;
 
 	if (ac != 2)
-		return (write(2, "Error: arguments\n", 17) - 16);
+		return (ft_error("arguments", 1));
 	game.pars.path = av[1];
 	ft_init(&game);
 	game.mlx = mlx_init();
@@ -42,15 +42,17 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	game.win = mlx_new_window(game.mlx, WIDTH, HEIGHT, "Cub3D");
+	game.img = mlx_new_image(game.mlx, WIDTH, HEIGHT);
+	game.addr = mlx_get_data_addr(game.img, &game.bpp,
+			&game.ll, &game.endian);
 	ft_draw(&game);
 	mlx_do_sync(game.mlx);
+	mlx_hook(game.win, 10, 1L << 21, focus, &game);
 	mlx_hook(game.win, 2, 1L << 0, key_down, &game);
 	mlx_hook(game.win, 3, 1L << 1, key_up, &game);
 	mlx_hook(game.win, 17, 0, ft_close, &game);
 	mlx_hook(game.win, 6, 1L << 6, ft_mouse, &game);
-	//mlx_key_hook(game.win, key_hook, &game);
 	mlx_loop_hook(game.mlx, ft_game, &game);
 	mlx_loop(game.mlx);
-	//ft_die(&game);
 	return (0);
 }

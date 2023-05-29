@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:51:21 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/19 11:58:41 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/29 12:19:08 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@
 #  define BUFFER_SIZE 1
 # endif
 
-# define WIDTH 1000
-# define HEIGHT 700
+# define WIDTH 1080
+# define HEIGHT 720
+# define BLOCK 5
 
-# define SYMBOLS " 10NEWSDd"
+# define SYMBOLS " 10NEWSD"
 # define WALLS "1D"
 
 # define DR_CLS "images/door.xpm"
@@ -34,16 +35,24 @@
 # define PL_MISS "player position missig"
 # define INV_COL "invalid colors"
 # define INV_MAP "invalid map"
+# define MAC_ERR "malloc error"
 // colors
 # define RED "\033[31m"
 # define BLKRED "\033[5;31m"
 # define RESET "\033[0;0;0m"
+# define MM_BG 0x2c2c2c
+# define MM_PC 0x00ff00
+# define MM_WL 0xffffff
+# define MM_CD 0xff0000
+# define MM_OD 0x00ffff
+# define MM_CV 0xf9f876
 
 # include <math.h>
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <sys/time.h>
 # include "mlx/mlx.h"
 
 typedef struct s_vect
@@ -51,6 +60,12 @@ typedef struct s_vect
 	double	x;
 	double	y;
 }	t_vect;
+
+typedef struct s_door
+{
+	char	type;
+	long	time;
+}	t_door;
 
 typedef struct s_img
 {
@@ -81,15 +96,20 @@ typedef struct s_tex
 	double	texpos;
 	int		texx;
 	int		texy;
-	float	step;
+	double	step;
 }	t_tex;
 
 typedef struct s_game
 {
+	double	p;
+	t_door	**doors;
 	void	*mlx;
 	void	*win;
 	void	*img;
 	void	*addr;
+	t_img	map;
+	long	ot;
+	int		fps;
 	int		x;
 	int		z;
 	int		move_x;
@@ -135,22 +155,37 @@ void	ft_zoom(t_game *game);
 void	ft_update_wall(t_game *game);
 int		key_up(int keycode, void *param);
 int		key_down(int keycode, void *param);
+int		focus(void *param);
 // mouse_hook
 int		ft_mouse(int x, int y, void *param);
 void	ft_rotate(t_game *game, int type, double rad);
 // movement
-void	ft_dda(t_game *g);
 void	ft_move(t_game *game);
+void	ft_draw_line(t_game *g);
 void	ft_prepare_dda(t_game *game);
 void	ft_check_boundary(t_game *game);
 // images
 void	ft_draw(t_game *game);
 void	ft_set_img(t_game *game);
+void	ft_normalize(t_game *game);
 void	ft_put_line(t_game *g, int i);
 void	ft_set_draw_zone(t_game *game);
+// door
+void	ft_check_time(t_game *g);
+void	ft_set_minimap(t_game *g);
+void	ft_reset_time(t_game *g, int i, int j);
+void	ft_update_door(t_game *game, int y, int x);
+int		ft_check_door_time(t_game *game, t_game *g, double n);
+// dda
+void	ft_dda(t_game *g);
+int		ft_dda2(t_game *g);
+int		ft_step_x(t_game *game, t_game *g);
+int		ft_step_y(t_game *game, t_game *g);
+int		ft_next_step(t_game game, t_game *g);
 
 // Parser
 // parser
+int		ft_set_doors(t_game *g);
 int		ft_parser(t_game *game);
 int		ft_getdim(t_pars *pars);
 int		ft_getmat(t_pars *pars);
@@ -205,5 +240,9 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 // mlx_wrap
 int		create_trgb(int t, int r, int g, int b);
 void	*ft_xpm(void *mlx, char *str, int *w, int *h);
+// time
+long	ft_gettime(long time);
+// itoa
+char	*ft_itoa(int n);
 
 #endif

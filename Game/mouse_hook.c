@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:56:03 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/19 12:15:06 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/22 13:50:16 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,10 @@ int	ft_mouse(int x, int y, void *param)
 	game = (t_game *) param;
 	(void) y;
 	mlx_mouse_hide(game->mlx, game->win);
-	if (x > game->x)
+	while (x > game->x++)
 		ft_rotate(game, 1, 2 * M_PI / (double) WIDTH);
-	else if (x < game->x)
+	while (x < game->x--)
 		ft_rotate(game, -1, 2 * M_PI / (double) WIDTH);
-	game->x = x;
 	ft_draw(game);
 	return (0);
 }

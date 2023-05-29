@@ -6,22 +6,32 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:34:02 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/19 12:23:59 by adi-stef         ###   ########.fr       */
+/*   Updated: 2023/05/29 12:27:22 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
+void	ft_normalize(t_game *game)
+{
+	double	mod;
+
+	mod = sqrtf(powf(game->ray.x, 2) + powf(game->ray.y, 2));
+	game->ray.x /= mod;
+	game->ray.y /= mod;
+}
+
 void	ft_draw(t_game *game)
 {
-	int	i;
+	int		i;
+	char	*fps;
 
-	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
-	game->addr = mlx_get_data_addr(game->img, &game->bpp,
-			&game->ll, &game->endian);
+	game->ot = ft_gettime(0);
+	ft_set_minimap(game);
 	i = -1;
 	while (++i < WIDTH)
 	{
+		game->p = -1;
 		game->ray.x = game->dir.x + game->cam.x * (2 * i / (double) WIDTH - 1);
 		game->ray.y = game->dir.y + game->cam.y * (2 * i / (double) WIDTH - 1);
 		ft_prepare_dda(game);
@@ -31,16 +41,16 @@ void	ft_draw(t_game *game)
 		ft_put_line(game, i);
 	}
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
-	mlx_destroy_image(game->mlx, game->img);
-	return ;
+	mlx_put_image_to_window(game->mlx, game->win, game->map.img, 0, 0);
+	game->ot = ft_gettime(game->ot);
+	game->fps = 1000 / game->ot;
+	fps = ft_itoa(game->fps);
+	mlx_string_put(game->mlx, game->win, WIDTH - 30, 15, 0xFFFFFF, fps);
+	ft_free((void **) &fps);
 }
 
 void	ft_set_draw_zone(t_game *game)
 {
-	if (!game->side)
-		game->pwd = game->sdx - game->ddx;
-	else
-		game->pwd = game->sdy - game->ddy;
 	game->lh = (int)(game->z * HEIGHT / game->pwd);
 	game->ds = HEIGHT / 2 - game->lh / 2;
 	if (game->ds < 0)
@@ -68,13 +78,16 @@ void	ft_set_img(t_game *game)
 		game->cur = game->no;
 	else if (game->side == 1 && game->ray.y > 0)
 		game->cur = game->so;
-	game->tex.texx = (int)(game->tex.wallx * (double) game->cur.w);
+	if (game->p == -1)
+		game->tex.texx = (int)(game->tex.wallx * (double) game->cur.w);
+	else
+		game->tex.texx = (int)((game->tex.wallx - game->p - 0.01f)
+				* (double) game->cur.w);
 	if ((game->side == 0 && game->ray.x < 0)
 		|| (game->side == 1 && game->ray.y > 0))
 		game->tex.texx = game->cur.w - game->tex.texx - 1;
 	game->tex.step = game->cur.h / (float) game->lh;
 	game->tex.texpos = (game->ds - HEIGHT / 2 + game->lh / 2) * game->tex.step;
-	return ;
 }
 
 void	ft_put_line(t_game *g, int i)
@@ -93,7 +106,7 @@ void	ft_put_line(t_game *g, int i)
 			*(unsigned int *)dst = *(unsigned int *)(g->cur.addr + (g->tex.texx
 						* (g->cur.bpp / 8) + g->tex.texy * g->cur.ll));
 		}
-		else if (n < g->ds)
+		else if (n <= g->ds)
 		{
 			dst = g->addr + (i * (g->bpp / 8) + n * g->ll);
 			*(unsigned int *)dst = create_trgb(1, g->c[0], g->c[1], g->c[2]);

@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_wrap.c                                         :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gpanico <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 09:56:10 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/26 11:57:50 by adi-stef         ###   ########.fr       */
+/*   Created: 2023/05/22 10:29:29 by gpanico           #+#    #+#             */
+/*   Updated: 2023/05/22 12:11:29 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	*ft_xpm(void *mlx, char *str, int *w, int *h)
+long	ft_gettime(long time)
 {
-	return (mlx_xpm_file_to_image(mlx, str, w, h));
-}
+	struct timeval	t;
 
-int	create_trgb(int t, int r, int g, int b)
-{
-	return ((t << 24) | (r << 16) | (g << 8) | b);
+	gettimeofday(&t, NULL);
+	return (t.tv_sec * 1000 + t.tv_usec / 1000 - time);
 }
