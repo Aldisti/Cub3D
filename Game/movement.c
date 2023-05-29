@@ -6,7 +6,7 @@
 /*   By: adi-stef <adi-stef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 18:09:47 by adi-stef          #+#    #+#             */
-/*   Updated: 2023/05/29 12:18:02 by gpanico          ###   ########.fr       */
+/*   Updated: 2023/05/29 14:21:29 by gpanico          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	ft_check_boundary(t_game *game)
 	if (ft_in(game->pars.mat[(int) game->pos.y - 1][(int)game->pos.x], WALLS)
 			&& game->pos.y < (int)game->pos.y + 0.50f)
 		game->pos.y = (int)game->pos.y + 0.50f;
-	if (game->pars.mat[(int) game->pos.y][(int)game->pos.x] == '1')
+	if (ft_in(game->pars.mat[(int) game->pos.y][(int)game->pos.x], "1D"))
 	{
 		if (game->pos.y - (int)game->pos.y > 0.5f)
 			game->pos.y = (int)game->pos.y + 1.5f;
